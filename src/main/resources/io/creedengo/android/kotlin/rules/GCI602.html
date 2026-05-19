@@ -1,0 +1,61 @@
+<p>
+  Logging inside loops causes log statements to execute per iteration, rapidly
+  consuming I/O bandwidth, CPU, and filling log buffers. This degrades app
+  performance and battery life, especially on mobile devices.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+
+<pre>
+fun processItems(items: List&lt;Item&gt;) {
+    for (item in items) {
+        Log.d("TAG", "Processing: ${item.name}") // Noncompliant — logs every iteration
+        item.process()
+    }
+}
+
+fun retryWithLogging() {
+    var retries = 0
+    while (retries &lt; 10) {
+        Log.e("TAG", "Retry $retries") // Noncompliant — logs inside loop
+        retries++
+        attempt()
+    }
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+
+<pre>
+// Option 1: Move logging outside the loop
+fun processItems(items: List&lt;Item&gt;) {
+    Log.d("TAG", "Processing ${items.size} items")
+    for (item in items) {
+        item.process()
+    }
+    Log.d("TAG", "Processing complete")
+}
+
+// Option 2: Log once with aggregated data
+fun retryWithLogging() {
+    var retries = 0
+    val maxRetries = 10
+    while (retries &lt; maxRetries) {
+        retries++
+        attempt()
+    }
+    if (retries == maxRetries) {
+        Log.e("TAG", "Failed after $maxRetries retries")
+    }
+}
+
+// Option 3: Use trace logging for debugging (disabled in production)
+fun processItems(items: List&lt;Item&gt;) {
+    for (item in items) {
+        if (BuildConfig.DEBUG) {
+            Log.v("TAG", "Processing: ${item.name}") // Only in debug builds
+        }
+        item.process()
+    }
+}
+</pre>
