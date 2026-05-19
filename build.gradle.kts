@@ -31,7 +31,10 @@ dependencies {
     // Bundled into our plugin JAR (server-side rule metadata + profile loaders)
     implementation("org.sonarsource.analyzer-commons:sonar-analyzer-commons:$sonarAnalyzerCommonsVersion")
 
-    // Tests
+    // Tests — testkit needs the same provided deps available at compile time
+    testImplementation("org.sonarsource.api.plugin:sonar-plugin-api:$sonarPluginApiVersion")
+    testImplementation("org.sonarsource.sonarqube:sonar-plugin-api-impl:$sonarqubeMinVersion")
+    testImplementation("org.sonarsource.kotlin:sonar-kotlin-plugin:$sonarKotlinVersion")
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
     testImplementation("org.assertj:assertj-core:3.25.3")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
