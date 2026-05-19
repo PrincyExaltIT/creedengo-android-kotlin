@@ -1,0 +1,17 @@
+{
+  "title": "Avoid programmatically clearing the application cache",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "creedengo",
+    "performance",
+    "android",
+    "kotlin",
+    "eco-design"
+  ],
+  "defaultSeverity": "Minor"
+}

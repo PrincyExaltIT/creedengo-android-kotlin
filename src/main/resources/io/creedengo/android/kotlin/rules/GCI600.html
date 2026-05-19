@@ -1,0 +1,24 @@
+<p>Proactively wiping the application cache forces the operating system or the app itself to rebuild the cached content from the network or from disk. That rebuild burns extra CPU cycles, drains the battery and wastes bandwidth — all things eco-design rules try to avoid. Let the OS evict cache entries when it actually needs the space.</p>
+
+<h2>Noncompliant Code Example</h2>
+
+<pre>
+val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+activityManager.clearApplicationUserData() // Noncompliant
+
+context.cacheDir.deleteRecursively() // Noncompliant
+applicationContext.cacheDir.deleteRecursively() // Noncompliant
+</pre>
+
+<h2>Compliant Solution</h2>
+
+<pre>
+// Don't clear the cache proactively. If you absolutely must remove
+// a specific file (e.g. expired token, user logged out), target it precisely:
+File(context.cacheDir, "expired-session-token").delete()
+</pre>
+
+<h2>See</h2>
+<ul>
+  <li><a href="https://github.com/green-code-initiative/creedengo-android">Sister project — creedengo-android (Java)</a></li>
+</ul>
