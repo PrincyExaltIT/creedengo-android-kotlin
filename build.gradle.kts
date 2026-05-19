@@ -22,11 +22,15 @@ val sonarPluginApiVersion = "9.8.0.203"
 val sonarKotlinVersion = "3.0.1.6889"
 val sonarAnalyzerCommonsVersion = "2.5.0.1358"
 val sonarqubeMinVersion = "10.4.0.87286"
+val kotlinCompilerVersion = "1.9.23"
 
 dependencies {
     // SonarQube runtime — provided by the host server, do NOT bundle
     compileOnly("org.sonarsource.kotlin:sonar-kotlin-plugin:$sonarKotlinVersion")
     compileOnly("org.sonarsource.api.plugin:sonar-plugin-api:$sonarPluginApiVersion")
+
+    // Kotlin PSI for AST analysis (provided by sonar-kotlin-plugin at runtime)
+    compileOnly("org.jetbrains.kotlin:kotlin-compiler-embeddable:$kotlinCompilerVersion")
 
     // Bundled into our plugin JAR (server-side rule metadata + profile loaders)
     implementation("org.sonarsource.analyzer-commons:sonar-analyzer-commons:$sonarAnalyzerCommonsVersion")
@@ -35,6 +39,7 @@ dependencies {
     testImplementation("org.sonarsource.api.plugin:sonar-plugin-api:$sonarPluginApiVersion")
     testImplementation("org.sonarsource.sonarqube:sonar-plugin-api-impl:$sonarqubeMinVersion")
     testImplementation("org.sonarsource.kotlin:sonar-kotlin-plugin:$sonarKotlinVersion")
+    testImplementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:$kotlinCompilerVersion")
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
     testImplementation("org.assertj:assertj-core:3.25.3")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
