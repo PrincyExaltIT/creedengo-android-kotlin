@@ -1,0 +1,46 @@
+services:
+  sonar:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: sonar_creedengo-android
+    ports:
+      - "9000:9000"
+    networks:
+      - sonarnet
+    depends_on:
+      - db
+    environment:
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonarqube
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: 'true'
+    volumes:
+      - type: bind
+        source: ./lib/creedengo-android-2.0.0-SNAPSHOT.jar
+        target: /opt/sonarqube/extensions/plugins/creedengo-android-2.0.0-SNAPSHOT.jar
+      - "logs:/opt/sonarqube/logs"
+      - "data:/opt/sonarqube/data"
+
+  db:
+    image: postgres:12
+    container_name: postgresql_creedengo-android
+    networks:
+      - sonarnet
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+      POSTGRES_DB: sonarqube
+      PGDATA: pg_data:/var/lib/postgresql/data/pgdata
+
+networks:
+  sonarnet:
+    driver: bridge
+
+volumes:
+  data:
+  logs:
+  extensions:
+  pg_data:

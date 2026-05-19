@@ -1,94 +1,88 @@
-<div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" width="500" height="100" srcset="docs/resources/creedengo_light.svg">
-    <source media="(prefers-color-scheme: light)" width="500" height="100" srcset="docs/resources/creedengo_dark.svg">
-    <img alt="Creedengo logo" width="500" height="100" src="docs/resources/creedengo_light.svg">
-  </picture>
-  <p>
-    <strong>A Green Code Initiative project</strong>
-  </p>
-</div>
+![Logo](docs/resources/5ekko.png)
 
----
-
-# Creedengo Android Kotlin
+# Creedengo Android Java
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](https://github.com/green-code-initiative/creedengo-common/blob/main/doc/CODE_OF_CONDUCT.md)
 
-_creedengo_ is a collective project aiming to reduce environmental footprint of software at the code level. The goal of the project is to provide a list of static code analyzers to highlight code structures that may have a negative ecological impact: energy and resources over-consumption, "fatware", shortening terminals' lifespan, etc.
+Creedengo is a collective project aiming to reduce the environmental footprint of software at the code level. This repository hosts the Android-focused plugin, originally released as `ecoCode android` and now branded as **Creedengo Android Java**.
 
-**creedengo-android-kotlin** is the SonarQube plugin that evaluates green code smells in **Android Kotlin** projects. It is the Kotlin counterpart of [creedengo-android (Java)](https://github.com/green-code-initiative/creedengo-android).
+It provides static code analyzers to highlight code structures that may have a negative ecological impact: energy over-consumption, "fatware", shortening devices' lifespan, etc.
 
-The plugin is based on an evolving catalog of [best practices for mobile](https://github.com/cnumr/best-practices-mobile#-android-platform), theorised by Dr. Olivier Le Goaër.
+The project is based on an evolving catalog of [best practices for Android](https://github.com/cnumr/best-practices-mobile#-android-platform). A SonarQube plugin implements this catalog as rules for scanning native Android projects **written in Java only**.
 
-**Warning**: this is still a very early stage project. Any feedback or contribution will be highly appreciated. Please refer to the contribution section.
+Resources:
+- [Complete presentation](docs/resources/devfest-2022.pdf) (FR)
+- [Presentation in a nutshell](docs/resources/apidays-2022.pdf)
+- [Hands-on tutorial](https://olegoaer.perso.univ-pau.fr/green-it-summer-school/ecoCode/lab.html) (FR, ecoCode name)
 
-📋 Follow the project progress on the [Kanban board](https://github.com/orgs/green-code-initiative/projects/33).
+🌿 SonarQube plugin
+-------------------
 
-## 🌿 SonarQube Plugin
+![Screenshot](android-plugin/docs/screenshot.png)
+
+<sub>The custom GUI above is reserved to educational purpose only.</sub>
 
 This plugin targets:
-- Android Kotlin source code
+- Android Java source code
 - Android XML configurations
+- Gradle build files (Groovy)
 
-It provides rules to detect energy smells and eco-design anti-patterns specific to Android Kotlin applications.
+🚀 Quickstart
+-------------
 
-See also:
-- [creedengo-android (Java)](https://github.com/green-code-initiative/creedengo-android) – the Java counterpart
-- [creedengo-rules-specifications](https://github.com/green-code-initiative/creedengo-rules-specifications) – all rules specifications
-
-## 🚀 Quickstart
-
-A SonarQube container image with Creedengo Android Kotlin embedded exists!
+A SonarQube container image with Creedengo Android Java embedded exists!
 
 ```bash
 docker run -ti --rm \
-       -v sq_creedengo_android_kotlin_logs:/opt/sonarqube/logs \
-       -v sq_creedengo_android_kotlin_data:/opt/sonarqube/data \
+       -v sq_creedengo_android_logs:/opt/sonarqube/logs \
+       -v sq_creedengo_android_data:/opt/sonarqube/data \
        -p 9000:9000 \
-       --name sonarqube-creedengo-android-kotlin \
-       ghcr.io/green-code-initiative/sonarqube-creedengo-android-kotlin:latest
+       --name sonarqube-creedengo-android  \
+       ghcr.io/green-code-initiative/sonarqube-creedengo-android:latest
 ```
 
 Wait a little bit during first start initialization, and go to [http://localhost:9000](http://localhost:9000). Default credentials are `admin`/`admin`
 
-## 🛒 Distribution
+🛒 Distribution
+---------------
 
-Ready to use binaries are available [from GitHub](https://github.com/green-code-initiative/creedengo-android-kotlin/releases).
+Ready to use binaries are available [from GitHub](https://github.com/green-code-initiative/ecoCode-android/releases).
 
-## 🧩 Plugins version compatibility
+🧩 Plugins version compatibility
+------------------
 
-| Plugins Version | SonarQube version |
-|-----------------|-------------------|
-| 0.0.+           | TBD               |
+| Plugins Version | SonarQube version           |
+|-----------------|-----------------------------|
+| 0.0.+           | SonarQube 8.9.+ LTS to 9.3  |
+| 0.1.+           | SonarQube 9.4.+ LTS to 9.9  |
+| 1.0.+           | SonarQube 9.4.+ LTS to 9.9  |
+| 1.1.+           | SonarQube 9.4.+ LTS to 10.3 |
 
-## ☕ Plugin compatibility
+☕ Plugin Java part compatibility
+------------------
 
-| Plugins Version | Java version | Kotlin version |
-|-----------------|--------------|----------------|
-| 0.0.+           | 17           | 2.0+           |
+| Plugins Version  | Java version |
+|------------------|--------------|
+| 0.0.+            | 11 / 17      |
+| 0.1.+            | 11 / 17      |
+| 1.0.+            | 11 / 17      |
+| 1.1.+            | 11 / 17      |
 
-## 🤝 Contribution
+🤝 Contributing
+---------------
 
-You are a technical expert, a designer, a project manager, a CSR expert, an ecodesign expert...
+Have an idea or want to help? We welcome contributions. See `CONTRIBUTING.md` and the related guides.
 
-You want to offer the help of your company, help us to organize, communicate on the project?
+🤝 Partners
+------------
 
-You have ideas to submit to us?
+[![Snapp’](android-plugin/docs/logoSnapp.png)](https://www.snapp.fr)
+[![Université de Pau](android-plugin/docs/logoUnivPau.png)](https://www.univ-pau.fr/)
+[![Région Nouvelle-Aquitaine](android-plugin/docs/logoNA.png)](https://www.nouvelle-aquitaine.fr)
+[![Solocal / PagesJaunes](android-plugin/docs/logoSolocal.png)](https://www.pagesjaunes.fr)
 
-We are listening to you to make the project progress collectively, and maybe with you!
-
-WE NEED YOU!
-
-Here is the [Starter pack](https://github.com/green-code-initiative/creedengo-common/blob/main/doc/starter-pack.md)
-
-Please also read [`CONTRIBUTING.md`](CONTRIBUTING.md).
-
-## 🤝 Partners
-
-
-## 📢 Cite this work
+📢 Cite this work
+------------------
 
 If you use Creedengo in an academic work we would be really glad if you cite our seminal paper using the following bibtex entry:
 
