@@ -1,9 +1,5 @@
 {
   "name": "creedengo way",
   "language": "kotlin",
-  "ruleKeys": [
-    "GCI600",
-    "GCI505",
-    "GCI522"
-  ]
+  "ruleKeys": ["GCI600", "GCI505", "GCI522"]
 }
