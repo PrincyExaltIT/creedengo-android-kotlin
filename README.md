@@ -53,6 +53,36 @@ docker run -ti --rm \
 
 Wait a little bit during first start initialization, and go to [http://localhost:9000](http://localhost:9000). Default credentials are `admin`/`admin`
 
+## 🧪 Run from source
+
+Prerequisites: Docker Desktop (WSL2 backend on Windows), JDK 17.
+
+```bash
+./gradlew shadowJar           # produces build/libs/creedengo-android-kotlin-<version>.jar
+docker compose up -d          # boots SonarQube 25.12 community + PostgreSQL 17
+docker compose logs -f sonar  # wait for "SonarQube is operational"
+```
+
+Open <http://localhost:9000> (default credentials `admin` / `admin`, change on first login).
+
+Reload the plugin after editing sources:
+
+```bash
+./gradlew shadowJar && docker compose restart sonar
+```
+
+Tear down (keeps volumes for next session):
+
+```bash
+docker compose down
+```
+
+Wipe everything including the SonarQube database:
+
+```bash
+docker compose down -v
+```
+
 ## 🛒 Distribution
 
 Ready to use binaries are available [from GitHub](https://github.com/green-code-initiative/creedengo-android-kotlin/releases).
