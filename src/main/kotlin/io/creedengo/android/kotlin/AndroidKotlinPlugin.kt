@@ -15,20 +15,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package io.creedengo.android.kotlin;
+package io.creedengo.android.kotlin
 
-import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
-import org.sonarsource.analyzer.commons.BuiltInQualityProfileJsonLoader;
+import org.sonar.api.Plugin
 
-public class AndroidKotlinProfile implements BuiltInQualityProfilesDefinition {
+class AndroidKotlinPlugin : Plugin {
 
-    static final String PROFILE_PATH = "io/creedengo/android/kotlin/creedengo_way_profile.json";
-    static final String PROFILE_NAME = "creedengo way";
-
-    @Override
-    public void define(Context context) {
-        NewBuiltInQualityProfile profile = context.createBuiltInQualityProfile(PROFILE_NAME, AndroidKotlinRulesDefinition.LANGUAGE);
-        BuiltInQualityProfileJsonLoader.load(profile, AndroidKotlinRulesDefinition.REPOSITORY_KEY, PROFILE_PATH);
-        profile.done();
+    override fun define(context: Plugin.Context) {
+        context.addExtension(AndroidKotlinRulesDefinition::class.java)
+        context.addExtension(AndroidKotlinProfile::class.java)
     }
 }

@@ -15,16 +15,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package io.creedengo.android.kotlin;
+package io.creedengo.android.kotlin
 
-import org.sonar.api.Plugin;
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+import org.sonar.api.Plugin
+import org.sonar.api.SonarEdition
+import org.sonar.api.SonarQubeSide
+import org.sonar.api.SonarRuntime
+import org.sonar.api.internal.SonarRuntimeImpl
+import org.sonar.api.utils.Version
 
-public class AndroidKotlinPlugin implements Plugin {
+class AndroidKotlinPluginTest {
 
-    @Override
-    public void define(Context context) {
-        context.addExtension(AndroidKotlinRulesDefinition.class);
-        context.addExtension(AndroidKotlinProfile.class);
-        context.addExtension(AndroidKotlinExtensionsProvider.class);
+    private val runtime: SonarRuntime = SonarRuntimeImpl.forSonarQube(
+        Version.create(9, 9), SonarQubeSide.SERVER, SonarEdition.COMMUNITY
+    )
+
+    @Test
+    fun `plugin registers two expected extensions`() {
+        val context = Plugin.Context(runtime)
+        AndroidKotlinPlugin().define(context)
+
+        assertThat(context.extensions)
+            .containsExactlyInAnyOrder(
+                AndroidKotlinRulesDefinition::class.java,
+                AndroidKotlinProfile::class.java
+            )
     }
 }

@@ -21,7 +21,7 @@ kotlin {
 val sonarPluginApiVersion = "9.8.0.203"
 val sonarKotlinVersion = "3.0.1.6889"
 val sonarAnalyzerCommonsVersion = "2.5.0.1358"
-val sonarqubeMinVersion = "9.9.7.96285"
+val sonarqubeMinVersion = "10.4.0.87286"
 
 dependencies {
     // SonarQube runtime — provided by the host server, do NOT bundle
@@ -58,6 +58,7 @@ val pluginManifest = mapOf(
     "Plugin-SourcesUrl"           to "https://github.com/green-code-initiative/creedengo-android-kotlin",
     "Plugin-License"              to "GPL v3",
     "Plugin-RequiredForLanguages" to "kotlin",
+    "Plugin-RequirePlugins"       to "kotlin:3.0.1",
     "Sonar-Version"               to sonarqubeMinVersion,
     "SonarLint-Supported"         to "true",
     "Jre-Min-Version"             to "17"

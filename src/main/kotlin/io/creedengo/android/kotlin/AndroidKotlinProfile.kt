@@ -15,22 +15,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package io.creedengo.android.kotlin;
+package io.creedengo.android.kotlin
 
-import java.util.List;
+import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition
+import org.sonarsource.analyzer.commons.BuiltInQualityProfileJsonLoader
 
-import io.creedengo.android.kotlin.checks.ClearCacheCheck;
-import org.sonarsource.kotlin.api.checks.KotlinCheck;
+class AndroidKotlinProfile : BuiltInQualityProfilesDefinition {
 
-public final class AndroidKotlinCheckList {
-
-    private AndroidKotlinCheckList() {
-        // utility class
+    override fun define(context: BuiltInQualityProfilesDefinition.Context) {
+        val profile = context.createBuiltInQualityProfile(PROFILE_NAME, AndroidKotlinRulesDefinition.LANGUAGE)
+        BuiltInQualityProfileJsonLoader.load(profile, AndroidKotlinRulesDefinition.REPOSITORY_KEY, PROFILE_PATH)
+        profile.done()
     }
 
-    public static List<Class<? extends KotlinCheck>> checks() {
-        return List.of(
-                ClearCacheCheck.class
-        );
+    companion object {
+        const val PROFILE_PATH = "io/creedengo/android/kotlin/creedengo_way_profile.json"
+        const val PROFILE_NAME = "creedengo way"
     }
 }
