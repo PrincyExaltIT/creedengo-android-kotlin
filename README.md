@@ -24,6 +24,8 @@ The plugin is based on an evolving catalog of [best practices for mobile](https:
 
 **Warning**: this is still a very early stage project. Any feedback or contribution will be highly appreciated. Please refer to the contribution section.
 
+📋 Follow the project progress on the [Kanban board](https://github.com/orgs/green-code-initiative/projects/33).
+
 ## 🌿 SonarQube Plugin
 
 This plugin targets:
