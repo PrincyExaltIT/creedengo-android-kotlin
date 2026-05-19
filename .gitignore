@@ -1,0 +1,22 @@
+# Ignore all files and folders starting with ".", except a few exceptions
+.*
+!.gitignore
+!.gitattributes
+!.github/
+
+# Ignore generated files
+target
+build
+bin
+dependency-reduced-pom.xml
+
+# Ignore IDE files
+*.iml
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore local config
+local.properties
+*.env
