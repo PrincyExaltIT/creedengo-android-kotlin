@@ -1,3 +1,0 @@
-Creedengo SonarQube plugin
-Copyright (C) 2020-2021 Snapp' - Université de Pau et des Pays de l'Adour
-mailto: contact@green-code-initiative.org
