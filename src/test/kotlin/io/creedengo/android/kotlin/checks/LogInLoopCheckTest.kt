@@ -15,15 +15,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package io.creedengo.android.kotlin
+package io.creedengo.android.kotlin.checks
 
-import org.sonar.api.Plugin
+import io.creedengo.android.kotlin.AndroidKotlinCheckList
+import org.junit.jupiter.api.Test
+import org.sonar.check.Rule
+import java.util.Objects
 
-class AndroidKotlinPlugin : Plugin {
+/**
+ * Tests for LogInLoopCheck (GCI602).
+ */
+class LogInLoopCheckTest {
 
-    override fun define(context: Plugin.Context) {
-        context.addExtension(AndroidKotlinRulesDefinition::class.java)
-        context.addExtension(AndroidKotlinProfile::class.java)
-        context.addExtension(AndroidKotlinExtensionsProvider::class.java)
+    @Test
+    fun rule_annotation_is_present() {
+        val annotation = LogInLoopCheck::class.java.getAnnotation(Rule::class.java)
+        Objects.requireNonNull(annotation, "LogInLoopCheck must have @Rule annotation")
+        check(annotation!!.key == "GCI602") { "Expected GCI602 but got ${annotation.key}" }
+    }
+
+    @Test
+    fun rule_is_registered_in_checklist() {
+        val checks = AndroidKotlinCheckList.checks()
+        val logInLoopCheckPresent = checks.any { it == LogInLoopCheck::class.java }
+        check(logInLoopCheckPresent) { "LogInLoopCheck not registered in AndroidKotlinCheckList" }
     }
 }

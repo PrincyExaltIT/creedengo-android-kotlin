@@ -15,35 +15,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-<<<<<<<< HEAD:src/test/kotlin/io/creedengo/android/kotlin/checks/ClearCacheCheckTest.kt
-package io.creedengo.android.kotlin.checks
-
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Test
-import org.sonar.check.Rule
-import org.sonarsource.kotlin.api.checks.AbstractCheck
-
-class ClearCacheCheckTest {
-
-    @Test
-    fun `is annotated with rule key GCI600`() {
-        val annotation = ClearCacheCheck::class.java.getAnnotation(Rule::class.java)
-        assertThat(annotation).isNotNull
-        assertThat(annotation.key).isEqualTo("GCI600")
-    }
-
-    @Test
-    fun `extends sonar-kotlin AbstractCheck`() {
-        assertThat(AbstractCheck::class.java).isAssignableFrom(ClearCacheCheck::class.java)
-    }
-
-    @Test
-    fun `MESSAGE mentions the cache anti-pattern`() {
-        assertThat(ClearCacheCheck.MESSAGE)
-            .containsIgnoringCase("cache")
-            .contains("rebuild")
-    }
-========
 package io.creedengo.android.kotlin
 
 import io.creedengo.android.kotlin.checks.ClearCacheCheck
@@ -58,5 +29,4 @@ object AndroidKotlinCheckList {
         ThreadSleepCheck::class.java,
         LogInLoopCheck::class.java
     )
->>>>>>>> 697e0e0 (feat: Readapt kotlin provider and build):src/main/kotlin/io/creedengo/android/kotlin/AndroidKotlinCheckList.kt
 }

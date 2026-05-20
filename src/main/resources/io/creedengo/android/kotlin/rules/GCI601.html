@@ -1,0 +1,75 @@
+<p>
+  <code>Thread.sleep()</code> blocks the current thread synchronously, wasting
+  CPU cycles and battery. On Android, blocking the main thread freezes the UI
+  and creates ANR (Application Not Responding) errors. Even on background
+  threads, blocking is inefficient and prevents responsive task scheduling.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+
+<pre>
+fun delayedTask() {
+    Thread.sleep(1000) // Noncompliant — blocks thread
+    doWork()
+}
+
+fun pollWithDelay() {
+    for (i in 1..10) {
+        Thread.sleep(100) // Noncompliant — especially in loops
+        checkStatus()
+    }
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+
+<pre>
+// Use coroutines and delay()
+suspend fun delayedTask() {
+    delay(1000) // Non-blocking, suspends only this coroutine
+    doWork()
+}
+
+// Or use Handler/post-delayed on Android
+Handler(Looper.getMainLooper()).postDelayed({
+    doWork()
+}, 1000)
+
+// Or use ScheduledExecutorService
+scheduler.schedule({ checkStatus() }, 100, TimeUnit.MILLISECONDS)
+</pre>
+
+<h2>Why It Matters</h2>
+<ul>
+  <li>
+    <strong>Battery drain:</strong> Blocked threads consume CPU even while idle,
+    draining battery
+  </li>
+  <li>
+    <strong>UI freezing:</strong> Blocking the main thread stops frame
+    rendering, harming user experience
+  </li>
+  <li>
+    <strong>Resource waste:</strong> Threads are expensive OS resources;
+    blocking them prevents efficient multiplexing
+  </li>
+</ul>
+
+<h2>See</h2>
+<ul>
+  <li>
+    <a href="https://developer.android.com/guide/background/threads"
+      >Android Threading Guidelines</a
+    >
+  </li>
+  <li>
+    <a href="https://kotlinlang.org/docs/coroutines-basics.html"
+      >Kotlin Coroutines</a
+    >
+  </li>
+  <li>
+    <a href="https://github.com/green-code-initiative/creedengo-android"
+      >Sister project — creedengo-android (Java)</a
+    >
+  </li>
+</ul>

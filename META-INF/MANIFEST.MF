@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Plugin-Key: creedengoandroidkotlin
+Plugin-Class: io.creedengo.android.kotlin.AndroidKotlinPlugin
+Plugin-Name: Creedengo Android Kotlin
+Plugin-Description: Provides rules to reduce the environmental footprint
+  of your Kotlin Android applications
+Plugin-Version: 0.0.1-SNAPSHOT
+Plugin-Organization: Green Code Initiative
+Plugin-OrganizationUrl: https://github.com/green-code-initiative
+Plugin-Homepage: https://github.com/green-code-initiative/creedengo-andr
+ oid-kotlin
+Plugin-IssueTrackerUrl: https://github.com/green-code-initiative/creeden
+ go-android-kotlin/issues
+Plugin-SourcesUrl: https://github.com/green-code-initiative/creedengo-an
+ droid-kotlin
+Plugin-License: GPL v3
+Plugin-RequiredForLanguages: kotlin
+Plugin-Dependencies: kotlin
+Sonar-Version: 9.9.7.96285
+SonarLint-Supported: true
+Jre-Min-Version: 17
+
