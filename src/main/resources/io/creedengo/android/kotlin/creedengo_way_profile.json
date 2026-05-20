@@ -3,6 +3,7 @@
   "language": "kotlin",
   "ruleKeys": [
     "GCI600",
-    "GCI505"
+    "GCI505",
+    "GCI522"
   ]
 }
