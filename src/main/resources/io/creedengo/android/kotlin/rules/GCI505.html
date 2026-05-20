@@ -1,0 +1,33 @@
+
+<p>Keeping the screen on prevents the device from dimming or sleeping, forcing the display — one of the biggest battery consumers — to stay active indefinitely. Unless absolutely necessary (e.g. a navigation or video app), this should be avoided. Let the OS manage screen timeout naturally.</p>
+
+<h2>Noncompliant Code Example</h2>
+
+<pre>
+// Using hex literal directly
+window.addFlags(0x00000080) // Noncompliant
+
+// Using the named constant
+window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON) // Noncompliant
+
+// Combining flags with OR
+window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or WindowManager.LayoutParams.FLAG_FULLSCREEN) // Noncompliant
+</pre>
+
+<h2>Compliant Solution</h2>
+
+<pre>
+// Don't keep the screen on proactively. If you absolutely must prevent
+// the screen from turning off (e.g. video playback, GPS navigation),
+// make sure to clear the flag as soon as it is no longer needed:
+window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
+// Prefer using the XML attribute on the view instead, scoped to the activity:
+// android:keepScreenOn="true"
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://developer.android.com/training/scheduling/wakelock#screen-lock">Android documentation — Keep the screen on</a></li>
+    <li><a href="https://github.com/green-code-initiative/creedengo-android">Sister project — creedengo-android (Java)</a></li>
+</ul>
