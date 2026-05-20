@@ -63,11 +63,15 @@ class BrightnessOverrideRule : AbstractCheck() {
     private fun isBrightnessFullValue(expression: KtExpression): Boolean {
         if (expression !is KtConstantExpression) return false
 
-        val text = expression.text
-            .trimEnd('f', 'F')
-            .trimEnd('.')
-
-        return text.toFloatOrNull() == BRIGHTNESS_FULL_VALUE_FLOAT
-                || text.toIntOrNull() == BRIGHTNESS_FULL_VALUE_INT
+        val text = expression.text.trim()
+        
+        // Remove float/double suffix (f, F, d, D)
+        val withoutSuffix = text.trimEnd('f', 'F', 'd', 'D')
+        
+        // Try to parse as a number
+        val floatValue = withoutSuffix.toFloatOrNull()
+        val intValue = withoutSuffix.toIntOrNull()
+        
+        return floatValue == BRIGHTNESS_FULL_VALUE_FLOAT || intValue == BRIGHTNESS_FULL_VALUE_INT
     }
 }
