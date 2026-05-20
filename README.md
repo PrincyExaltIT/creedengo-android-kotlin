@@ -40,7 +40,7 @@ See also:
 
 ## 🚀 Quickstart
 
-A SonarQube container image with Creedengo Android Kotlin embedded exists!
+A SonarQube container image with Creedengo Android Kotlin embedded is published to GHCR. Pin a specific release (`:X.Y.Z`) for reproducibility or use `:latest` to track the newest tag.
 
 ```bash
 docker run -ti --rm \
@@ -51,9 +51,20 @@ docker run -ti --rm \
        ghcr.io/green-code-initiative/sonarqube-creedengo-android-kotlin:latest
 ```
 
-Wait a little bit during first start initialization, and go to [http://localhost:9000](http://localhost:9000). Default credentials are `admin`/`admin`
+Wait a little bit during first start initialization, and go to [http://localhost:9000](http://localhost:9000). Default credentials are `admin`/`admin`.
 
-Images are published to GHCR on every semver git tag `X.Y.Z`. Use `:latest` for the most recent release or pin to `:X.Y.Z` for reproducibility.
+> Note: the image is only available from GHCR once the first semver tag has been pushed. Until then, build it locally (see below).
+
+## 🏗️ Build the image yourself
+
+The repo ships a multi-stage `Dockerfile` (Gradle builder → SonarQube + plugin) — no local JDK or Gradle install required, just Docker:
+
+```bash
+docker build -t creedengo-android-kotlin .
+docker run --rm -p 9000:9000 -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true creedengo-android-kotlin
+```
+
+The plugin version baked into the jar manifest defaults to `0.0.1-SNAPSHOT`. Override it with `--build-arg PLUGIN_VERSION=X.Y.Z` if you want a specific version label to appear in the SonarQube administration UI — it does not affect plugin behaviour.
 
 ## 🧪 Run from source
 
@@ -85,27 +96,16 @@ Wipe everything including the SonarQube database:
 docker compose down -v
 ```
 
-### 🏗️ Build the image yourself
-
-The repo also ships a multi-stage `Dockerfile` (Gradle builder → SonarQube + plugin) — no local Gradle install needed:
-
-```bash
-docker build -t creedengo-android-kotlin .
-docker run --rm -p 9000:9000 -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true creedengo-android-kotlin
-```
-
-The plugin version baked into the jar can be overridden with `--build-arg PLUGIN_VERSION=X.Y.Z` (defaults to the value declared in `build.gradle.kts`).
-
 ## 📦 Releasing
 
-Pushing a semver git tag triggers `.github/workflows/publish-image.yml`, which builds the plugin with `-Pversion=X.Y.Z` and publishes `ghcr.io/green-code-initiative/sonarqube-creedengo-android-kotlin:X.Y.Z` (plus `:latest`).
+Pushing a semver git tag matching `X.Y.Z` triggers [`.github/workflows/publish-image.yml`](.github/workflows/publish-image.yml). The workflow builds the plugin with `-Pversion=X.Y.Z`, then pushes the image to GHCR as both `:X.Y.Z` and `:latest`.
 
 ```bash
 git tag 0.1.0
 git push origin 0.1.0
 ```
 
-The workflow also flips the GHCR package visibility to public on first release.
+On the first tagged release, the workflow also flips the GHCR package visibility to public so the image can be pulled anonymously. The job can also be triggered manually via `workflow_dispatch` (useful for rebuilds without a new tag).
 
 ## 🛒 Distribution
 
@@ -115,7 +115,7 @@ Ready to use binaries are available [from GitHub](https://github.com/green-code-
 
 | Plugins Version | SonarQube version |
 |-----------------|-------------------|
-| 0.0.+           | TBD               |
+| 0.0.+           | 25.12+ (Community) |
 
 ## ☕ Plugin compatibility
 
