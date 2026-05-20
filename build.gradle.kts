@@ -1,7 +1,7 @@
 plugins {
-    kotlin("jvm") version "2.0.21"
+    alias(libs.plugins.kotlin.jvm)
     `java-library`
-    id("com.gradleup.shadow") version "8.3.6"
+    alias(libs.plugins.shadow)
 }
 
 group = "io.creedengo"
@@ -17,27 +17,23 @@ kotlin {
     jvmToolchain(17)
 }
 
-// --- Versions ---
-val sonarPluginApiVersion = "9.8.0.203"
-val sonarKotlinVersion = "3.0.1.6889"
-val sonarAnalyzerCommonsVersion = "2.5.0.1358"
-val sonarqubeMinVersion = "10.4.0.87286"
+val sonarqubeMinVersion = libs.versions.sonarqube.plugin.api.impl.get()
 
 dependencies {
     // SonarQube runtime — provided by the host server, do NOT bundle
-    compileOnly("org.sonarsource.kotlin:sonar-kotlin-plugin:$sonarKotlinVersion")
-    compileOnly("org.sonarsource.api.plugin:sonar-plugin-api:$sonarPluginApiVersion")
+    compileOnly(libs.sonarsource.kotlin.plugin)
+    compileOnly(libs.sonarsource.plugin.api)
 
     // Bundled into our plugin JAR (server-side rule metadata + profile loaders)
-    implementation("org.sonarsource.analyzer-commons:sonar-analyzer-commons:$sonarAnalyzerCommonsVersion")
+    implementation(libs.sonarsource.analyzer.commons)
 
     // Tests — testkit needs the same provided deps available at compile time
-    testImplementation("org.sonarsource.api.plugin:sonar-plugin-api:$sonarPluginApiVersion")
-    testImplementation("org.sonarsource.sonarqube:sonar-plugin-api-impl:$sonarqubeMinVersion")
-    testImplementation("org.sonarsource.kotlin:sonar-kotlin-plugin:$sonarKotlinVersion")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
-    testImplementation("org.assertj:assertj-core:3.25.3")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation(libs.sonarsource.plugin.api)
+    testImplementation(libs.sonarsource.plugin.api.impl)
+    testImplementation(libs.sonarsource.kotlin.plugin)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.assertj.core)
+    testRuntimeOnly(libs.junit.platform.launcher)
 }
 
 tasks.test {
