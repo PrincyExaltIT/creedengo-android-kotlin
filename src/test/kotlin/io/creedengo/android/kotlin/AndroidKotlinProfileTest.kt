@@ -33,7 +33,6 @@ class AndroidKotlinProfileTest {
 
         val profileKeys = profile!!.rules().map { it.ruleKey() }.toSet()
 
-        assertThat(profileKeys).isEqualTo(AndroidKotlinRulesDefinition.RULE_KEYS.toSet())
-        assertThat(profileKeys).contains("GCI600")
+        assertThat(profileKeys).isEqualTo(setOf("GCI505", "GCI522", "GCI600"))
     }
 }

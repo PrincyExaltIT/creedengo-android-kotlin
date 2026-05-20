@@ -33,13 +33,13 @@ class AndroidKotlinPluginTest {
     )
 
     @Test
-    fun `plugin registers two expected extensions`() {
+    fun `plugin registers expected extensions`() {
         val context = Plugin.Context(runtime)
         AndroidKotlinPlugin().define(context)
 
         assertThat(context.extensions)
             .containsExactlyInAnyOrder(
-                AndroidKotlinRulesDefinition::class.java,
+                CreedengoKotlinExtensionsProvider::class.java,
                 AndroidKotlinProfile::class.java
             )
     }

@@ -22,7 +22,7 @@ import org.sonar.api.Plugin
 class AndroidKotlinPlugin : Plugin {
 
     override fun define(context: Plugin.Context) {
-        context.addExtension(AndroidKotlinRulesDefinition::class.java)
+        context.addExtension(CreedengoKotlinExtensionsProvider::class.java)
         context.addExtension(AndroidKotlinProfile::class.java)
     }
 }
