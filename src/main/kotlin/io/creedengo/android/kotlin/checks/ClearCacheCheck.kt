@@ -43,7 +43,9 @@ class ClearCacheCheck : AbstractCheck() {
     override fun visitCallExpression(expression: KtCallExpression, data: KotlinFileContext) {
         // Skeleton scope: only run on Android sources. Sonar-kotlin marks files
         // belonging to Android projects via the `sonar.kotlin.android` property.
-        if (!data.isInAndroid()) return
+        //if (!data.isInAndroid()) return
+
+        data.reportIssue(expression, MESSAGE)
 
         when (expression.calleeExpression?.text) {
             "clearApplicationUserData" -> data.reportIssue(expression, MESSAGE)
@@ -51,6 +53,7 @@ class ClearCacheCheck : AbstractCheck() {
                 // narrow false positives: require the receiver chain to mention `cacheDir`.
                 val text = expression.parent?.text ?: expression.text
                 if (text.contains("cacheDir")) data.reportIssue(expression, MESSAGE)
+                data.reportIssue(expression, MESSAGE)
             }
         }
     }
