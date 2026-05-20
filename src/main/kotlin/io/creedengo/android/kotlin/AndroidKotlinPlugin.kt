@@ -24,5 +24,6 @@ class AndroidKotlinPlugin : Plugin {
     override fun define(context: Plugin.Context) {
         context.addExtension(AndroidKotlinRulesDefinition::class.java)
         context.addExtension(AndroidKotlinProfile::class.java)
+        context.addExtension(AndroidKotlinExtensionsProvider::class.java)
     }
 }

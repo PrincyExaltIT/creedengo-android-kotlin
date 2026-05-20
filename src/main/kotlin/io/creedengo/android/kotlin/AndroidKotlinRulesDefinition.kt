@@ -25,10 +25,9 @@ class AndroidKotlinRulesDefinition(private val sonarRuntime: SonarRuntime) : Rul
 
     override fun define(context: RulesDefinition.Context) {
         val repository = context.createRepository(REPOSITORY_KEY, LANGUAGE).setName(REPOSITORY_NAME)
-        RuleMetadataLoader(RESOURCE_BASE_PATH, sonarRuntime).addRulesByRuleKey(
-            repository,
-            RULE_KEYS
-        )
+
+        val ruleMetadataLoader = RuleMetadataLoader(RESOURCE_BASE_PATH, sonarRuntime)
+        ruleMetadataLoader.addRulesByAnnotatedClass(repository, checks().toMutableList() as MutableList<Class<*>>)
         repository.done()
     }
 
@@ -38,11 +37,6 @@ class AndroidKotlinRulesDefinition(private val sonarRuntime: SonarRuntime) : Rul
         const val REPOSITORY_NAME = "Creedengo Android Kotlin"
         const val RESOURCE_BASE_PATH = "io/creedengo/android/kotlin/rules"
 
-        @JvmField
-        val RULE_KEYS: List<String> = listOf(
-            "GCI600",
-            "GCI505",
-            "GCI522"
-        )
+        fun checks() = AndroidKotlinCheckList.checks()
     }
 }

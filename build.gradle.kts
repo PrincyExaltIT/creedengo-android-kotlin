@@ -25,11 +25,13 @@ val sonarqubeMinVersion = "10.4.0.87286"
 val kotlinCompilerVersion = "1.9.23"
 
 dependencies {
-    // SonarQube runtime — provided by the host server, do NOT bundle
-    compileOnly("org.sonarsource.kotlin:sonar-kotlin-plugin:$sonarKotlinVersion")
+    // SonarQube Plugin API — provided by the host server
     compileOnly("org.sonarsource.api.plugin:sonar-plugin-api:$sonarPluginApiVersion")
 
-    // Kotlin PSI for AST analysis (provided by sonar-kotlin-plugin at runtime)
+    // Kotlin plugin — compile-only for signature access, runtime provided by sonar-kotlin-plugin
+    compileOnly("org.sonarsource.kotlin:sonar-kotlin-plugin:$sonarKotlinVersion")
+    
+    // Kotlin compiler
     compileOnly("org.jetbrains.kotlin:kotlin-compiler-embeddable:$kotlinCompilerVersion")
 
     // Bundled into our plugin JAR (server-side rule metadata + profile loaders)
@@ -73,6 +75,11 @@ tasks.shadowJar {
     archiveClassifier.set("")
     mergeServiceFiles()
     manifest { attributes(pluginManifest) }
+    
+    // Exclude SonarQube plugin manifests and metadata to prevent conflicts
+    exclude("META-INF/MANIFEST.MF")
+    exclude("META-INF/sonarplugins.xml")
+    exclude("META-INF/services/org.sonar.plugins.common.RulesRepository")
 }
 
 // Replace the default thin jar with the shaded fat jar in the build output
