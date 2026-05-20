@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "io.creedengo"
-version = "0.0.1-SNAPSHOT"
+version = (project.findProperty("version") as String?)?.takeIf { it != "unspecified" } ?: "0.0.1-SNAPSHOT"
 
 description = "Provides rules to reduce the environmental footprint of your Kotlin Android applications"
 

@@ -3,6 +3,7 @@
 !.gitignore
 !.gitattributes
 !.github/
+!.dockerignore
 
 # Ignore generated files
 target

@@ -17,31 +17,24 @@
  */
 package io.creedengo.android.kotlin
 
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Test
-import org.sonar.api.Plugin
-import org.sonar.api.SonarEdition
-import org.sonar.api.SonarQubeSide
-import org.sonar.api.SonarRuntime
-import org.sonar.api.internal.SonarRuntimeImpl
-import org.sonar.api.utils.Version
+import com.sonarsource.plugins.kotlin.api.KotlinPluginExtensionsProvider
+import io.creedengo.android.kotlin.checks.ClearCacheCheck
 
-class AndroidKotlinPluginTest {
+// Plugs Creedengo checks into sonar-kotlin's KotlinSensor — no custom sensor needed.
+// registerRule's boolean adds the rule to sonar-kotlin's stock Sonar way profile too.
+class AndroidKotlinExtensionsProvider : KotlinPluginExtensionsProvider {
 
-    private val runtime: SonarRuntime = SonarRuntimeImpl.forSonarQube(
-        Version.create(9, 9), SonarQubeSide.SERVER, SonarEdition.COMMUNITY
-    )
+    override fun registerKotlinPluginExtensions(extensions: KotlinPluginExtensionsProvider.Extensions) {
+        extensions.registerRepository(
+            AndroidKotlinRulesDefinition.REPOSITORY_KEY,
+            AndroidKotlinRulesDefinition.REPOSITORY_NAME,
+        )
+        CHECK_CLASSES.forEach { check ->
+            extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, check, true)
+        }
+    }
 
-    @Test
-    fun `plugin registers expected extensions`() {
-        val context = Plugin.Context(runtime)
-        AndroidKotlinPlugin().define(context)
-
-        assertThat(context.extensions)
-            .containsExactlyInAnyOrder(
-                AndroidKotlinRulesDefinition::class.java,
-                AndroidKotlinProfile::class.java,
-                AndroidKotlinExtensionsProvider::class.java
-            )
+    companion object {
+        val CHECK_CLASSES: List<Class<*>> = listOf(ClearCacheCheck::class.java)
     }
 }
