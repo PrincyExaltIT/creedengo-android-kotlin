@@ -1,0 +1,40 @@
+/*
+ * creedengo - Android Kotlin language - Provides rules to reduce the environmental footprint of your Kotlin Android applications
+ * Copyright © 2026 Green Code Initiative (https://green-code-initiative.org/)
+ *
+ * Licensed under the GNU General Public License v3 — see LICENCE.md for details.
+ */
+package io.creedengo.android.kotlin
+
+import com.sonarsource.plugins.kotlin.api.KotlinPluginExtensionsProvider
+import io.creedengo.android.kotlin.checks.ClearCacheCheck
+import io.creedengo.android.kotlin.checks.environment.BrightnessOverrideRule
+import io.creedengo.android.kotlin.checks.environment.KeepScreenOnAddFlagsRule
+import org.sonar.api.scanner.ScannerSide
+
+/**
+ * Registers Creedengo rule classes with the sonar-kotlin analysis engine.
+ *
+ * Without this provider, the rule classes are never instantiated by the scanner,
+ * so their visitor methods never run and no issues are reported. The provider
+ * also tells sonar-kotlin to create the `creedengo-android-kotlin` repository
+ * and auto-load rule metadata from `org/sonar/l10n/kotlin/rules/kotlin/`.
+ *
+ * The third argument to `registerRule(...)` controls inclusion in the default
+ * "Sonar way" profile — we set it to false because our rules live in the
+ * dedicated `creedengo way` profile.
+ */
+@ScannerSide
+class CreedengoKotlinExtensionsProvider : KotlinPluginExtensionsProvider {
+
+    override fun registerKotlinPluginExtensions(extensions: KotlinPluginExtensionsProvider.Extensions) {
+        extensions.registerRepository(
+            AndroidKotlinRulesDefinition.REPOSITORY_KEY,
+            AndroidKotlinRulesDefinition.REPOSITORY_NAME,
+        )
+
+        extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, ClearCacheCheck::class.java, false)
+        extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, BrightnessOverrideRule::class.java, false)
+        extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, KeepScreenOnAddFlagsRule::class.java, false)
+    }
+}

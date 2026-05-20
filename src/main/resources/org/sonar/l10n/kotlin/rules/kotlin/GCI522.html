@@ -1,0 +1,55 @@
+<p>Repeatedly querying or polling the screen brightness forces unnecessary wake-ups of the display subsystem, consumes extra CPU cycles and drains the battery faster. Instead, register a listener or observer that reacts only when the brightness actually changes, and unregister it as soon as it is no longer needed.</p>
+
+<h2>Noncompliant Code Example</h2>
+
+<pre>
+// Polling brightness in a loop — Noncompliant
+while (true) {
+    val brightness = Settings.System.getInt(
+        context.contentResolver,
+        Settings.System.SCREEN_BRIGHTNESS
+    )
+    processBrightness(brightness)
+    Thread.sleep(1000)
+}
+
+// Querying brightness on every frame — Noncompliant
+override fun onDraw(canvas: Canvas) {
+    val brightness = Settings.System.getInt(
+        context.contentResolver,
+        Settings.System.SCREEN_BRIGHTNESS
+    )
+    adjustColors(canvas, brightness)
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+
+<pre>
+// Register a ContentObserver once and react only on actual changes
+val brightnessObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
+    override fun onChange(selfChange: Boolean) {
+        val brightness = Settings.System.getInt(
+            context.contentResolver,
+            Settings.System.SCREEN_BRIGHTNESS
+        )
+        processBrightness(brightness)
+    }
+}
+
+context.contentResolver.registerContentObserver(
+    Settings.System.getUriFor(Settings.System.SCREEN_BRIGHTNESS),
+    false,
+    brightnessObserver
+)
+
+// Unregister when no longer needed to avoid resource leaks
+context.contentResolver.unregisterContentObserver(brightnessObserver)
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://github.com/green-code-initiative/creedengo-android">Sister project — creedengo-android (Java)</a></li>
+    <li><a href="https://developer.android.com/reference/android/database/ContentObserver">Android documentation — ContentObserver</a></li>
+    <li><a href="https://developer.android.com/reference/android/provider/Settings.System#SCREEN_BRIGHTNESS">Android documentation — Settings.System.SCREEN_BRIGHTNESS</a></li>
+</ul>
