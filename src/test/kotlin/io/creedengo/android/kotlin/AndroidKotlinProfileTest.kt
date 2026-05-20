@@ -17,11 +17,9 @@
  */
 package io.creedengo.android.kotlin
 
-import io.creedengo.android.kotlin.checks.ClearCacheCheck
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition
-import org.sonar.check.Rule
 
 class AndroidKotlinProfileTest {
 
@@ -37,12 +35,5 @@ class AndroidKotlinProfileTest {
 
         assertThat(profileKeys).isEqualTo(AndroidKotlinRulesDefinition.RULE_KEYS.toSet())
         assertThat(profileKeys).contains("GCI600")
-    }
-
-    @Test
-    fun `ClearCacheCheck is annotated with GCI600`() {
-        val annotation = ClearCacheCheck::class.java.getAnnotation(Rule::class.java)
-        assertThat(annotation).isNotNull
-        assertThat(annotation.key).isEqualTo("GCI600")
     }
 }

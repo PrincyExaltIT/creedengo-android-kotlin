@@ -36,6 +36,6 @@ class AndroidKotlinRulesDefinition(private val sonarRuntime: SonarRuntime) : Rul
         const val RESOURCE_BASE_PATH = "io/creedengo/android/kotlin/rules"
 
         @JvmField
-        val RULE_KEYS: List<String> = listOf("GCI600")
+        val RULE_KEYS: List<String> = listOf("GCI600", "GCI505")
     }
 }
