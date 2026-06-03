@@ -9,6 +9,7 @@ package io.creedengo.android.kotlin
 import com.sonarsource.plugins.kotlin.api.KotlinPluginExtensionsProvider
 import io.creedengo.android.kotlin.checks.ClearCacheCheck
 import io.creedengo.android.kotlin.checks.environment.BrightnessOverrideRule
+import io.creedengo.android.kotlin.checks.environment.DurableWakeLockRule
 import io.creedengo.android.kotlin.checks.environment.KeepCpuOnRule
 import io.creedengo.android.kotlin.checks.environment.KeepScreenOnAddFlagsRule
 import io.creedengo.android.kotlin.checks.environment.KeepScreenOnSetFlagsRule
@@ -40,5 +41,6 @@ class CreedengoKotlinExtensionsProvider : KotlinPluginExtensionsProvider {
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, KeepScreenOnAddFlagsRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, KeepScreenOnSetFlagsRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, KeepCpuOnRule::class.java, false)
+        extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, DurableWakeLockRule::class.java, false)
     }
 }
