@@ -1,0 +1,42 @@
+<p>Applications are strongly discouraged from using exact alarms unnecessarily as they reduce the
+OS's ability to minimize battery use (i.e. Doze Mode).</p>
+<p>For most apps prior to API 19, <code>setInexactRepeating()</code> is preferable over
+<code>setRepeating()</code>. Android synchronizes multiple inexact repeating alarms and fires
+them at the same time, reducing battery drain.</p>
+<p>After API 19, <code>setExact()</code> and <code>setExactAndAllowWhileIdle()</code> can
+significantly impact power use when the device is idle, so they should be used with care.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+// Noncompliant — exact, prevents Doze Mode batching
+alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent)
+
+// Noncompliant — repeating exact alarm
+alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerAtMillis, intervalMillis, pendingIntent)
+
+// Noncompliant — exact alarm even while idle
+alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent)
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+// Compliant — inexact, allows the OS to batch alarms and save battery
+alarmManager.setInexactRepeating(
+    AlarmManager.RTC_WAKEUP, triggerAtMillis, AlarmManager.INTERVAL_HOUR, pendingIntent
+)
+
+// Better alternative: use WorkManager for deferrable background work
+val request = PeriodicWorkRequestBuilder&lt;MyWorker&gt;(1, TimeUnit.HOURS).build()
+WorkManager.getInstance(context).enqueue(request)
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://github.com/green-code-initiative/creedengo-android">Sister project — creedengo-android (Java)</a></li>
+    <li><a href="https://developer.android.com/reference/android/app/AlarmManager">Android documentation — AlarmManager</a></li>
+    <li><a href="https://developer.android.com/training/scheduling/alarms">Android documentation — Schedule alarms</a></li>
+</ul>
