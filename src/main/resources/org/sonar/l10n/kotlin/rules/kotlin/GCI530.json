@@ -1,0 +1,17 @@
+{
+  "title": "Avoid programmatically turning on the flashlight",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "creedengo",
+    "performance",
+    "android",
+    "kotlin",
+    "eco-design"
+  ],
+  "defaultSeverity": "Major"
+}
