@@ -11,6 +11,7 @@ import io.creedengo.android.kotlin.checks.ClearCacheCheck
 import io.creedengo.android.kotlin.checks.environment.BrightnessOverrideRule
 import io.creedengo.android.kotlin.checks.environment.DurableWakeLockRule
 import io.creedengo.android.kotlin.checks.environment.RigidAlarmRule
+import io.creedengo.android.kotlin.checks.environment.ThriftyNotificationRule
 import io.creedengo.android.kotlin.checks.environment.KeepCpuOnRule
 import io.creedengo.android.kotlin.checks.environment.KeepScreenOnAddFlagsRule
 import io.creedengo.android.kotlin.checks.environment.KeepScreenOnSetFlagsRule
@@ -44,5 +45,6 @@ class CreedengoKotlinExtensionsProvider : KotlinPluginExtensionsProvider {
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, KeepCpuOnRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, DurableWakeLockRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, RigidAlarmRule::class.java, false)
+        extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, ThriftyNotificationRule::class.java, false)
     }
 }

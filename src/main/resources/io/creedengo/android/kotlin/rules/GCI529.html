@@ -1,0 +1,45 @@
+<p>Giving information to the end-user through notifications is an important aspect of a modern app.
+However, a notification does not necessarily need to be loud or vibrant to achieve its purpose —
+the default mode is enough.</p>
+<p>Avoid calling <code>setSound()</code>, <code>setVibrate()</code>, or
+<code>setVibrationPattern()</code> with non-null arguments on a <code>Notification.Builder</code>
+or <code>NotificationChannel</code>. These trigger hardware actuators that consume extra energy.
+Passing <code>null</code> to these methods is compliant as it removes any previously set effect.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+// API 26+ — Notification.Builder
+val builder = Notification.Builder(context, "channel-id")
+builder.setVibrate(longArrayOf(1000, 1000, 1000)) // Noncompliant
+builder.setSound(
+    RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION),
+    Notification.AUDIO_ATTRIBUTES_DEFAULT
+) // Noncompliant
+
+// API 31+ — NotificationChannel
+val channel = NotificationChannel("channel-id", "My Channel", NotificationManager.IMPORTANCE_DEFAULT)
+channel.setVibrationPattern(longArrayOf(1000, 1000, 1000)) // Noncompliant
+channel.setSound(
+    RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION),
+    Notification.AUDIO_ATTRIBUTES_DEFAULT
+) // Noncompliant
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+// Rely on the default notification behaviour — no extra hardware actuators
+val builder = Notification.Builder(context, "channel-id")
+// No setVibrate() or setSound() call
+
+// Or explicitly remove vibration/sound by passing null
+val channel = NotificationChannel("channel-id", "My Channel", NotificationManager.IMPORTANCE_DEFAULT)
+channel.setVibrationPattern(null) // Compliant — removes vibration
+channel.setSound(null, null)      // Compliant — removes sound
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://github.com/green-code-initiative/creedengo-android">Sister project — creedengo-android (Java)</a></li>
+    <li><a href="https://developer.android.com/reference/android/app/NotificationChannel#setVibrationPattern(long[])">Android documentation — NotificationChannel.setVibrationPattern</a></li>
+    <li><a href="https://developer.android.com/reference/android/app/Notification.Builder#setVibrate(long[])">Android documentation — Notification.Builder.setVibrate</a></li>
+</ul>
