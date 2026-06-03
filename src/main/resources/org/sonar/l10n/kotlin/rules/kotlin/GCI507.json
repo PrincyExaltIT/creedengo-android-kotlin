@@ -1,0 +1,17 @@
+{
+  "title": "Avoid keeping the CPU on",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "1h"
+  },
+  "tags": [
+    "creedengo",
+    "performance",
+    "android",
+    "kotlin",
+    "eco-design"
+  ],
+  "defaultSeverity": "Major"
+}
