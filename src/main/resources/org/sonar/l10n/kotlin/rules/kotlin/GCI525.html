@@ -1,0 +1,26 @@
+<p>With Bluetooth Low Energy (BLE), the advertising mode controls how frequently the device
+broadcasts its presence. Higher advertising frequencies consume significantly more battery.</p>
+<p>When calling <code>AdvertiseSettings.Builder.setAdvertiseMode(int)</code>, always use
+<code>ADVERTISE_MODE_LOW_POWER</code> (value 0) unless a lower latency is strictly required.
+Using <code>ADVERTISE_MODE_BALANCED</code> or <code>ADVERTISE_MODE_LOW_LATENCY</code> drains
+the battery faster.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+val settings = AdvertiseSettings.Builder()
+    .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY) // Noncompliant
+    .build()
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+val settings = AdvertiseSettings.Builder()
+    .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_POWER) // Compliant
+    .build()
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://github.com/green-code-initiative/creedengo-android">Sister project — creedengo-android (Java)</a></li>
+    <li><a href="https://developer.android.com/reference/android/bluetooth/le/AdvertiseSettings#ADVERTISE_MODE_LOW_POWER">Android documentation — ADVERTISE_MODE_LOW_POWER</a></li>
+</ul>
