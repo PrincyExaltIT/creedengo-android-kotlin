@@ -1,0 +1,29 @@
+<p>With Bluetooth Low Energy (BLE), the connection priority controls the frequency of
+connection events between the GATT client (master) and the GATT server (slave). Higher
+priority means more frequent events and significantly more battery consumption.</p>
+<p>When calling <code>BluetoothGatt.requestConnectionPriority(int)</code>, always use
+<code>CONNECTION_PRIORITY_LOW_POWER</code> (value 2) unless low latency is strictly required.
+Using <code>CONNECTION_PRIORITY_BALANCED</code> or <code>CONNECTION_PRIORITY_HIGH</code>
+increases radio wake-ups and drains the battery faster.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+// Noncompliant — high priority increases radio activity and battery drain
+bluetoothGatt.requestConnectionPriority(BluetoothGatt.CONNECTION_PRIORITY_HIGH)
+
+// Noncompliant — balanced is better than high but still not optimal
+bluetoothGatt.requestConnectionPriority(BluetoothGatt.CONNECTION_PRIORITY_BALANCED)
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+// Compliant — low power minimizes radio wake-ups
+bluetoothGatt.requestConnectionPriority(BluetoothGatt.CONNECTION_PRIORITY_LOW_POWER)
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://github.com/green-code-initiative/creedengo-android">Sister project — creedengo-android (Java)</a></li>
+    <li><a href="https://developer.android.com/reference/android/bluetooth/BluetoothGatt#requestConnectionPriority(int)">Android documentation — BluetoothGatt.requestConnectionPriority</a></li>
+    <li><a href="https://developer.android.com/reference/android/bluetooth/BluetoothGatt#CONNECTION_PRIORITY_LOW_POWER">Android documentation — CONNECTION_PRIORITY_LOW_POWER</a></li>
+</ul>

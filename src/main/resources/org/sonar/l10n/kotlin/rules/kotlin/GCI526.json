@@ -1,0 +1,17 @@
+{
+  "title": "Use CONNECTION_PRIORITY_LOW_POWER for BLE connections",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "creedengo",
+    "performance",
+    "android",
+    "kotlin",
+    "eco-design"
+  ],
+  "defaultSeverity": "Major"
+}
