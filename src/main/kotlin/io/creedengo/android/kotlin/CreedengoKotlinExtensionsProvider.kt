@@ -10,6 +10,7 @@ import com.sonarsource.plugins.kotlin.api.KotlinPluginExtensionsProvider
 import io.creedengo.android.kotlin.checks.ClearCacheCheck
 import io.creedengo.android.kotlin.checks.environment.BrightnessOverrideRule
 import io.creedengo.android.kotlin.checks.environment.KeepScreenOnAddFlagsRule
+import io.creedengo.android.kotlin.checks.environment.KeepScreenOnSetFlagsRule
 import org.sonar.api.scanner.ScannerSide
 
 /**
@@ -36,5 +37,6 @@ class CreedengoKotlinExtensionsProvider : KotlinPluginExtensionsProvider {
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, ClearCacheCheck::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, BrightnessOverrideRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, KeepScreenOnAddFlagsRule::class.java, false)
+        extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, KeepScreenOnSetFlagsRule::class.java, false)
     }
 }

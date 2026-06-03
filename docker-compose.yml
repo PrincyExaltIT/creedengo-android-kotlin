@@ -24,6 +24,10 @@ services:
       - "extensions:/opt/sonarqube/extensions"
       - "logs:/opt/sonarqube/logs"
       - "data:/opt/sonarqube/data"
+      - type: bind
+        source: /opt/android-sdk/platforms/android-35/android.jar
+        target: /opt/android-sdk/android.jar
+        read_only: true
     healthcheck:
       test: 'host="$(hostname -i || echo ''127.0.0.1'')" && curl -sf http://$$host:9000/api/system/status | grep -qE ''"status":"(UP|DB_MIGRATION_REQUIRED|DB_MIGRATION_RUNNING|MIGRATION_SUCCEEDED)"'''
       interval: 10s

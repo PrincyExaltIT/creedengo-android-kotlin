@@ -21,7 +21,7 @@ abstract class FlagOnMethodCheck(
     methodName: String,
     fullyQualifiedClassName: String,
     private val flagValue: Int,
-    private val parameterIndex: Int
+    private val parameterIndices: List<Int>
 ) : CallAbstractCheck() {
 
     abstract fun getMessage(): String
@@ -38,11 +38,12 @@ abstract class FlagOnMethodCheck(
         resolvedCall: KaFunctionCall<*>,
         kotlinFileContext: KotlinFileContext
     ) {
-        // Récupère les arguments dans l'ordre positionnel
         val arguments = resolvedCall.argumentMapping.keys.toList()
-        val argExpression = arguments.getOrNull(parameterIndex) ?: return
-
-        if (containsFlag(argExpression, flagValue)) {
+        val flagFound = parameterIndices.any { index ->
+            val argExpression = arguments.getOrNull(index) ?: return@any false
+            containsFlag(argExpression, flagValue)
+        }
+        if (flagFound) {
             kotlinFileContext.reportIssue(
                 callExpression.calleeExpression!!,
                 getMessage()
