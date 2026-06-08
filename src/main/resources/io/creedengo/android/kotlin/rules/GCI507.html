@@ -1,0 +1,25 @@
+<p>To avoid draining the battery, an Android device that is left idle quickly falls asleep.
+Hence, keeping the CPU on should be avoided, unless it is absolutely necessary.<br>
+If so, developers typically use a Power Manager system service feature called wake locks
+by invoking <code>PowerManager.newWakeLock(int levelAndFlags, String tag)</code>,
+along with the specific permission <code>WAKE_LOCK</code> in their manifest.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
+val wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MyApp::MyWakelockTag")
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+// Use WorkManager or JobScheduler to schedule background work without a wake lock
+val request = OneTimeWorkRequestBuilder&lt;MyWorker&gt;().build()
+WorkManager.getInstance(context).enqueue(request)
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://github.com/green-code-initiative/creedengo-android">Sister project — creedengo-android (Java)</a></li>
+    <li><a href="https://developer.android.com/reference/android/os/PowerManager#newWakeLock(int,%20java.lang.String)">Android documentation — PowerManager.newWakeLock</a></li>
+    <li><a href="https://developer.android.com/topic/performance/vitals/wakelock">Android documentation — Wakelock best practices</a></li>
+</ul>

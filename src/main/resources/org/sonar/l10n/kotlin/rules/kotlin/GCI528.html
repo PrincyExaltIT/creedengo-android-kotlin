@@ -1,0 +1,29 @@
+<p>The Android vibrator is a hardware actuator (motor or piezoelectric element) that consumes power every time it fires.
+Because its added value is often marginal compared to visual or audio cues, its usage should be avoided or minimised.</p>
+<p>Avoid calling <code>getSystemService(Context.VIBRATOR_SERVICE)</code>, <code>getSystemService(Context.VIBRATOR_MANAGER_SERVICE)</code>,
+<code>getSystemService(Vibrator::class.java)</code>, or <code>getSystemService(VibratorManager::class.java)</code>.
+Prefer silent alternatives — visual feedback, badges, or quiet notifications — that deliver the same information without consuming extra energy.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+// API 26 — Vibrator (deprecated in API 31)
+val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator  // Noncompliant
+val vibrator2 = getSystemService(Vibrator::class.java)                 // Noncompliant
+
+// API 31+ — VibratorManager
+val vibratorManager = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager  // Noncompliant
+val vibratorManager2 = getSystemService(VibratorManager::class.java)                         // Noncompliant
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+// Use visual feedback instead of haptic feedback
+// Or notify via a quiet notification with no vibration pattern
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://github.com/green-code-initiative/creedengo-android">Sister project — creedengo-android (Java)</a></li>
+    <li><a href="https://developer.android.com/reference/android/os/Vibrator">Android documentation — Vibrator</a></li>
+    <li><a href="https://developer.android.com/reference/android/os/VibratorManager">Android documentation — VibratorManager</a></li>
+</ul>

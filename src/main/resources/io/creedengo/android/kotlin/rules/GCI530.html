@@ -1,0 +1,29 @@
+<p>The flashlight (torch) is one of the most energy-intensive hardware components on an Android
+device. Turning it on programmatically via
+<code>CameraManager.setTorchMode(cameraId, true)</code> should be avoided unless absolutely
+necessary, as it causes a significant and sustained drain on the battery.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+val cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
+try {
+    val cameraId = cameraManager.cameraIdList[0]
+    cameraManager.setTorchMode(cameraId, true) // Noncompliant — turns torch on
+} catch (e: CameraAccessException) {
+    e.printStackTrace()
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+// Turn the torch OFF when done — passing false is compliant
+cameraManager.setTorchMode(cameraId, false)
+
+// Or avoid the torch entirely and use screen brightness for illumination
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://github.com/green-code-initiative/creedengo-android">Sister project — creedengo-android (Java)</a></li>
+    <li><a href="https://developer.android.com/reference/android/hardware/camera2/CameraManager#setTorchMode(java.lang.String,%20boolean)">Android documentation — CameraManager.setTorchMode</a></li>
+</ul>

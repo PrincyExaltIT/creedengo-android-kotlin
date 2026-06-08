@@ -1,0 +1,21 @@
+<p>In Jetpack Compose, <code>Modifier.keepScreenOn()</code> (available since
+    <code>androidx.compose.ui:ui 1.9.0</code>) prevents the screen from dimming or turning off
+    while the composable is in the composition. This is the declarative equivalent of
+    <code>android:keepScreenOn="true"</code> in XML layouts (see GCI541).</p>
+<p>Keeping the screen on continuously drains the battery. It should only be used for
+    use-cases where the user actively watches the screen without touching it (e.g.
+    video playback, navigation turn-by-turn, workout tracking). In all other cases the
+    screen should be allowed to dim and lock normally.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    Box(modifier = Modifier.keepScreenOn()) {   // Noncompliant
+        Text("Hello")
+    }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    // Remove keepScreenOn() and let the system manage screen timeout.
+    Box {
+        Text("Hello")
+    }
+</pre>

@@ -1,0 +1,18 @@
+{
+  "title": "Batch: Job Coalesce",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "3h"
+  },
+  "tags": [
+    "batch",
+    "environment",
+    "creedengo",
+    "android",
+    "kotlin",
+    "eco-design"
+  ],
+  "defaultSeverity": "Minor"
+}

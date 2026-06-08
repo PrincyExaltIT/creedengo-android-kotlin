@@ -1,0 +1,15 @@
+<p>Bluetooth Low Energy (BLE) is designed to provide significantly lower power consumption than classic
+    Bluetooth. Its purpose is to save energy on both paired devices, but many developers default to the
+    classic Bluetooth API without considering the BLE alternative.<br>
+    Importing from <code>android.bluetooth.le.*</code> alongside <code>android.bluetooth.*</code>
+    enables low-energy features and is considered good practice.
+    Importing only from <code>android.bluetooth.*</code> (without <code>android.bluetooth.le.*</code>)
+    is flagged as a missed optimisation opportunity.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    import android.bluetooth.BluetoothAdapter  // Noncompliant — no BLE imports
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    import android.bluetooth.le.BluetoothLeScanner  // Compliant — GCI518 fires positively
+</pre>

@@ -1,0 +1,12 @@
+<p>Apps that adapt their behaviour when the device is charging, discharging, or reaches
+    critical battery levels consume less energy overall. You can monitor charging-state changes
+    by registering a broadcast receiver on <code>Intent.ACTION_POWER_CONNECTED</code> and
+    <code>Intent.ACTION_POWER_DISCONNECTED</code>, and significant battery-level changes
+    via <code>Intent.ACTION_BATTERY_LOW</code> and <code>Intent.ACTION_BATTERY_OKAY</code>.<br>
+    This rule fires as a positive signal whenever it detects that such monitoring is already in place.</p>
+<h2>Compliant Code Example</h2>
+<pre>
+    val filter = IntentFilter(Intent.ACTION_POWER_CONNECTED)
+    filter.addAction(Intent.ACTION_POWER_DISCONNECTED)
+    registerReceiver(batteryReceiver, filter)
+</pre>

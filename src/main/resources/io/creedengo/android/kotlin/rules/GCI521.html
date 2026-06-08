@@ -1,0 +1,29 @@
+<p>The rotation vector sensor (<code>Sensor.TYPE_ROTATION_VECTOR</code>) relies on a gyroscope in addition to an
+accelerometer and magnetometer, making it one of the more power-hungry sensor types.
+<code>TYPE_GEOMAGNETIC_ROTATION_VECTOR</code> provides a similar orientation estimate using only the accelerometer and
+magnetometer — no gyroscope — which significantly reduces energy consumption. It is noisier and better suited for outdoor
+use, but for most battery-sensitive applications it is the right trade-off.</p>
+
+<p>When calling <code>SensorManager.getDefaultSensor(int)</code>, pass
+<code>Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR</code> (20) instead of
+<code>Sensor.TYPE_ROTATION_VECTOR</code> (11).</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+val sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)        // Noncompliant
+val sensor2 = sensorManager.getDefaultSensor(11)                                // Noncompliant
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+val sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR) // Compliant
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://github.com/green-code-initiative/creedengo-android">Sister project — creedengo-android (Java)</a></li>
+    <li><a href="https://developer.android.com/reference/android/hardware/Sensor#TYPE_GEOMAGNETIC_ROTATION_VECTOR">Android documentation — Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR</a></li>
+    <li><a href="https://developer.android.com/reference/android/hardware/Sensor#TYPE_ROTATION_VECTOR">Android documentation — Sensor.TYPE_ROTATION_VECTOR</a></li>
+</ul>

@@ -1,0 +1,16 @@
+<p>The fused location provider is one of the location APIs in Google Play
+    services which combines signals from GPS, Wi-Fi, and cell networks, as well
+    as accelerometer, gyroscope, magnetometer and other sensors. It is officially
+    recommended to maximize battery life.<br>
+    The developer must add a dependency on
+    <code>com.google.android.gms:play-services-location:x.y.z</code> in their
+    Gradle file, then import from <code>com.google.android.gms.location</code>
+    instead of the <code>android.location</code> package of the SDK.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    import android.location.LocationManager
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    import com.google.android.gms.location.FusedLocationProviderClient
+</pre>

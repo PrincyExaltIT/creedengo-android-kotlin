@@ -1,0 +1,16 @@
+<p>The GPS sensor is expensive while in use. A common bug is to leave location updates running
+    when the app enters an idle state (paused or stopped).</p>
+<p>Calls to <code>LocationManager.requestLocationUpdates()</code> must be paired with
+    <code>LocationManager.removeUpdates()</code>. Failing to do so can drain the battery
+    in just a few hours.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    val lm = getSystemService(LOCATION_SERVICE) as LocationManager
+    lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 1.0f, this)  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    val lm = getSystemService(LOCATION_SERVICE) as LocationManager
+    lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 1.0f, this)
+    lm.removeUpdates(this)  // Compliant
+</pre>

@@ -1,0 +1,21 @@
+<p>HTTP responses from <code>URL.openConnection()</code> can be cached on the filesystem via
+    <code>HttpResponseCache</code>. When a response is reused from cache the network round-trip is
+    avoided entirely, saving both energy and data. Without a cache every identical request repeats
+    the full network path, draining the battery unnecessarily.</p>
+<p>Call <code>HttpResponseCache.install(cacheDir, maxSize)</code> once at application startup
+    (e.g. in <code>Application.onCreate()</code>) so all subsequent <code>HttpURLConnection</code>
+    requests benefit from caching automatically.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    // No cache configured — every request hits the network
+    val connection = URL("https://api.example.com/data").openConnection()   // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    // In Application.onCreate():
+    val cacheDir = File(cacheDir, "http_cache")
+    HttpResponseCache.install(cacheDir, 10 * 1024 * 1024L)
+
+    // Subsequent requests reuse cached responses automatically
+    val connection = URL("https://api.example.com/data").openConnection()   // Compliant
+</pre>

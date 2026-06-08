@@ -1,0 +1,30 @@
+<p>When calling <code>LocationManager.requestLocationUpdates()</code>, setting <code>minDistance</code> to zero
+disables distance-based filtering — the location provider sends updates even when the device has not moved,
+causing unnecessary wake-ups and battery drain. Use a positive value (e.g., 10 m) so updates are only
+delivered after meaningful movement.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+locationManager.requestLocationUpdates(
+    LocationManager.GPS_PROVIDER,
+    60_000L,
+    0f,    // Noncompliant — updates even without movement
+    listener
+)
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+locationManager.requestLocationUpdates(
+    LocationManager.GPS_PROVIDER,
+    60_000L,
+    10f,   // update only after 10 m of movement
+    listener
+)
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://github.com/green-code-initiative/creedengo-android">Sister project — creedengo-android (Java)</a></li>
+    <li><a href="https://developer.android.com/reference/android/location/LocationManager#requestLocationUpdates(java.lang.String,%20long,%20float,%20android.location.LocationListener)">Android documentation — LocationManager.requestLocationUpdates</a></li>
+</ul>

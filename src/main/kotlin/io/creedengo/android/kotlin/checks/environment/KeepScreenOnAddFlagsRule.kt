@@ -11,7 +11,7 @@ class KeepScreenOnAddFlagsRule : FlagOnMethodCheck(
     methodName = "addFlags",
     fullyQualifiedClassName = "android.view.Window",
     flagValue = 0x00000080,   // FLAG_KEEP_SCREEN_ON
-    parameterIndex = 0
+    parameterIndices = listOf(0)
 ) {
     override fun getMessage(): String =
         "Keeping the screen on should be avoided to avoid draining the battery."

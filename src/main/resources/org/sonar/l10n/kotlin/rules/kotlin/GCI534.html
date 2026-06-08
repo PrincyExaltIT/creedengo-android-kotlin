@@ -1,0 +1,25 @@
+<p><code>TelephonyManager.getDeviceId()</code> returns the hardware device identifier (IMEI on GSM networks,
+MEID on CDMA networks). This identifier is permanent and cannot be reset by the user, which makes it
+unsuitable for tracking purposes and raises serious privacy concerns. It also requires the
+<code>READ_PHONE_STATE</code> permission.</p>
+
+<p>Use <code>Settings.Secure.ANDROID_ID</code> instead: it is a 64-bit number unique to each combination
+of app-signing key, user, and device, and can be reset by a factory reset.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+val telephonyManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+val deviceId = telephonyManager.getDeviceId() // Noncompliant
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+val androidId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://github.com/green-code-initiative/creedengo-android">Sister project — creedengo-android (Java)</a></li>
+    <li><a href="https://developer.android.com/reference/android/provider/Settings.Secure#ANDROID_ID">Android documentation — Settings.Secure.ANDROID_ID</a></li>
+    <li><a href="https://developer.android.com/training/articles/user-data-ids">Android documentation — Best practices for unique identifiers</a></li>
+</ul>

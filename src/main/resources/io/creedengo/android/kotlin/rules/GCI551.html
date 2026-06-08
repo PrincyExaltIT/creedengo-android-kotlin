@@ -1,0 +1,20 @@
+<p>Services started with <code>Context.startService()</code> or <code>Context.startForegroundService()</code>
+    continue running indefinitely until explicitly stopped. Forgetting to call
+    <code>stopService()</code> or <code>stopSelf()</code> causes the service to drain the battery
+    in the background without the user's knowledge.</p>
+<p>Always pair every <code>startService()</code> call with a matching
+    <code>stopService()</code> call (from the caller) or a <code>stopSelf()</code> call
+    (from within the service) once the work is done.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    // Service started but never stopped — Noncompliant
+    startService(Intent(this, MyService::class.java))
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    startService(Intent(this, MyService::class.java))
+    // Later, when the work is complete:
+    stopService(Intent(this, MyService::class.java))
+    // Or from within the service itself:
+    // stopSelf()
+</pre>

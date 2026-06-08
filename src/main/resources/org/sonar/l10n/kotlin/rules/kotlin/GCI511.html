@@ -1,0 +1,23 @@
+<p>During a voice interaction session, <code>VoiceInteractionSession.setKeepAwake(Boolean)</code>
+    controls whether the system holds a wake lock for the session while it runs a voice activity.</p>
+<p>By default the system keeps the device awake. Calling <code>setKeepAwake(false)</code> releases
+    that wake lock so the CPU can sleep, preventing unnecessary battery drain. Calling
+    <code>setKeepAwake(true)</code> (or omitting the call entirely) keeps the device awake
+    and wastes energy.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    // Noncompliant — setKeepAwake never called (default keeps device awake)
+    class MySession(ctx: Context) : VoiceInteractionSession(ctx)
+</pre>
+<pre>
+    // Noncompliant — explicitly keeps device awake
+    setKeepAwake(true)
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    class MySession(ctx: Context) : VoiceInteractionSession(ctx) {
+        override fun onReady() {
+            setKeepAwake(false)   // Compliant
+        }
+    }
+</pre>

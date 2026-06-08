@@ -1,0 +1,26 @@
+<p>On Android 11 (API 30) and higher, calling <code>Surface.setFrameRate()</code> can change the physical display
+refresh rate. Rates above 60 Hz (e.g. 90 Hz or 120 Hz) cause the display hardware to refresh more frequently,
+which increases power consumption noticeably — even when app content is not changing at that pace.</p>
+
+<p>Unless the content truly benefits from a higher refresh rate (e.g. a game with a stable high frame rate),
+keep the frame rate at 60 Hz or below by passing a value ≤ 60.0f as the first argument to
+<code>Surface.setFrameRate()</code>.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+surface.setFrameRate(90f, Surface.FRAME_RATE_COMPATIBILITY_DEFAULT)   // Noncompliant
+surface.setFrameRate(120f, Surface.FRAME_RATE_COMPATIBILITY_DEFAULT)  // Noncompliant
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+surface.setFrameRate(60f, Surface.FRAME_RATE_COMPATIBILITY_DEFAULT)   // Compliant
+surface.setFrameRate(0f, Surface.FRAME_RATE_COMPATIBILITY_DEFAULT)    // Compliant — let the system decide
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://github.com/green-code-initiative/creedengo-android">Sister project — creedengo-android (Java)</a></li>
+    <li><a href="https://developer.android.com/reference/android/view/Surface#setFrameRate(float,%20int)">Android documentation — Surface.setFrameRate</a></li>
+    <li><a href="https://developer.android.com/guide/topics/media/frame-rate">Android guide — Frame rate</a></li>
+</ul>

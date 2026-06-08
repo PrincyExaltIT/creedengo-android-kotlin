@@ -1,0 +1,17 @@
+{
+  "title": "Avoid using exact alarms unnecessarily",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "1d"
+  },
+  "tags": [
+    "creedengo",
+    "performance",
+    "android",
+    "kotlin",
+    "eco-design"
+  ],
+  "defaultSeverity": "Major"
+}

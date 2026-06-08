@@ -1,0 +1,19 @@
+<p><code>ListView</code>, <code>GridView</code>, and <code>RecyclerView</code> render and hold all
+    visible (and off-screen buffer) items in memory at once. Jetpack Compose lazy components —
+    <code>LazyColumn</code>, <code>LazyRow</code>, <code>LazyVerticalGrid</code>, and
+    <code>LazyHorizontalGrid</code> — compose only the items currently on screen, discarding
+    items that scroll out of view. This reduces memory pressure, GPU work, and overall battery
+    consumption, especially for long lists.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    val list = ListView(context)       // Noncompliant
+    val grid = GridView(context)       // Noncompliant
+    val recycler = RecyclerView(context)  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    // Jetpack Compose — items are composed only when visible
+    LazyColumn {
+        items(dataList) { item -&gt; ItemRow(item) }
+    }
+</pre>
