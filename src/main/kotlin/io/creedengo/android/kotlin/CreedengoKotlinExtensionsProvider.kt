@@ -13,6 +13,7 @@ import io.creedengo.android.kotlin.checks.environment.DurableWakeLockRule
 import io.creedengo.android.kotlin.checks.environment.RigidAlarmRule
 import io.creedengo.android.kotlin.checks.environment.ThriftyBluetoothLowEnergyRequestConnectionPriorityRule
 import io.creedengo.android.kotlin.checks.environment.TorchFreeRule
+import io.creedengo.android.kotlin.checks.environment.VibrationFreeRule
 import io.creedengo.android.kotlin.checks.environment.ThriftyBluetoothLowEnergySetAdvertiseModeRule
 import io.creedengo.android.kotlin.checks.environment.ThriftyNotificationRule
 import io.creedengo.android.kotlin.checks.environment.KeepCpuOnRule
@@ -52,5 +53,6 @@ class CreedengoKotlinExtensionsProvider : KotlinPluginExtensionsProvider {
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, ThriftyBluetoothLowEnergySetAdvertiseModeRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, ThriftyBluetoothLowEnergyRequestConnectionPriorityRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, TorchFreeRule::class.java, false)
+        extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, VibrationFreeRule::class.java, false)
     }
 }
