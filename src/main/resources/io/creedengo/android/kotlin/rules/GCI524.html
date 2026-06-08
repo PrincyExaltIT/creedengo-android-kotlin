@@ -1,0 +1,20 @@
+<p>When requesting location updates, using <code>LocationManager.getBestProvider()</code> with a
+    low-power <code>Criteria</code> lets the OS pick the least energy-intensive provider available.
+    Skipping this and requesting updates directly on a fixed provider (e.g.
+    <code>GPS_PROVIDER</code>) forces the most power-hungry source regardless of need.</p>
+<p>Three escalating checks apply:</p>
+<ol>
+    <li>If <code>requestLocationUpdates</code> is called without <code>getBestProvider</code>, flag it.</li>
+    <li>If <code>getBestProvider</code> is used but <code>Criteria.setPowerRequirement</code> is never called, flag <code>getBestProvider</code>.</li>
+    <li>If <code>setPowerRequirement</code> is called with a value other than <code>POWER_LOW</code>, flag the call.</li>
+</ol>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 1f, this)  // Case 1
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    val criteria = Criteria()
+    criteria.setPowerRequirement(Criteria.POWER_LOW)
+    lm.requestLocationUpdates(lm.getBestProvider(criteria, true), 1000L, 1f, this)
+</pre>
