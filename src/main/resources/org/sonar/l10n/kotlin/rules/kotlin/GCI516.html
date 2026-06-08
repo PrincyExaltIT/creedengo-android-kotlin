@@ -1,0 +1,15 @@
+<p>Creating a <code>MediaPlayer</code> object allocates resources (memory, codec instances).
+    The class provides a <code>release()</code> method that must be called when the player is
+    no longer needed to free those resources.</p>
+<p>Failing to call <code>release()</code> can lead to continuous battery consumption on mobile
+    devices as the underlying media engine keeps running.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    val mp = MediaPlayer()   // Noncompliant — release() never called
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    val mp = MediaPlayer()
+    // ... use mp ...
+    mp.release()             // Compliant
+</pre>
