@@ -1,0 +1,15 @@
+<p>Creating a <code>MediaRecorder</code> object allocates resources (memory, codec instances, hardware
+    capture buffers). The class provides a <code>release()</code> method that must be called when
+    recording is finished to free those resources.</p>
+<p>Failing to call <code>release()</code> can lead to continuous battery consumption on mobile
+    devices as the underlying recording engine keeps running.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    val mr = MediaRecorder()   // Noncompliant — release() never called
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    val mr = MediaRecorder()
+    // ... record ...
+    mr.release()               // Compliant
+</pre>
