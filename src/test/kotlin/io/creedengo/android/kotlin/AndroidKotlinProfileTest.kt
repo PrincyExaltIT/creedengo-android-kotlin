@@ -33,6 +33,6 @@ class AndroidKotlinProfileTest {
 
         val profileKeys = profile!!.rules().map { it.ruleKey() }.toSet()
 
-        assertThat(profileKeys).isEqualTo(setOf("GCI500", "GCI501", "GCI502", "GCI503", "GCI505", "GCI506", "GCI507", "GCI508", "GCI509", "GCI510", "GCI513", "GCI515", "GCI516", "GCI517", "GCI518", "GCI519", "GCI520", "GCI521", "GCI522", "GCI523", "GCI525", "GCI526", "GCI527", "GCI528", "GCI529", "GCI530", "GCI531", "GCI532", "GCI533", "GCI534", "GCI600"))
+        assertThat(profileKeys).isEqualTo(setOf("GCI500", "GCI501", "GCI502", "GCI503", "GCI505", "GCI506", "GCI507", "GCI508", "GCI509", "GCI510", "GCI513", "GCI514", "GCI515", "GCI516", "GCI517", "GCI518", "GCI519", "GCI520", "GCI521", "GCI522", "GCI523", "GCI525", "GCI526", "GCI527", "GCI528", "GCI529", "GCI530", "GCI531", "GCI532", "GCI533", "GCI534", "GCI600"))
     }
 }

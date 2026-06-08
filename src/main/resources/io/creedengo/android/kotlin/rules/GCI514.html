@@ -1,0 +1,19 @@
+<p>Hardware sensors are expensive while in use. A common bug is to leave a
+    <code>SensorManager</code> listener registered when the app enters an idle state
+    (paused or stopped), causing the sensor to keep processing data unnecessarily.</p>
+<p>Calls to <code>SensorManager.registerListener()</code> must be paired with
+    <code>SensorManager.unregisterListener()</code>. Failing to do so can drain the battery
+    in just a few hours.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    val sm = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+    val accel = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+    sm.registerListener(this, accel, SensorManager.SENSOR_DELAY_NORMAL)  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    val sm = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+    val accel = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+    sm.registerListener(this, accel, SensorManager.SENSOR_DELAY_NORMAL)
+    sm.unregisterListener(this)  // Compliant
+</pre>

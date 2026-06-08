@@ -19,6 +19,7 @@ import io.creedengo.android.kotlin.checks.environment.FusedLocationRule
 import io.creedengo.android.kotlin.checks.environment.ChargeAwarenessRule
 import io.creedengo.android.kotlin.checks.environment.SaveModeAwarenessRule
 import io.creedengo.android.kotlin.checks.environment.LocationLeakRule
+import io.creedengo.android.kotlin.checks.environment.SensorManagerLeakRule
 import io.creedengo.android.kotlin.checks.environment.MediaLeakMediaPlayerRule
 import io.creedengo.android.kotlin.checks.environment.MediaLeakMediaRecorderRule
 import io.creedengo.android.kotlin.checks.environment.WifiMulticastLockRule
@@ -89,6 +90,7 @@ class CreedengoKotlinExtensionsProvider : KotlinPluginExtensionsProvider {
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, MediaLeakMediaPlayerRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, MediaLeakMediaRecorderRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, LocationLeakRule::class.java, false)
+        extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, SensorManagerLeakRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, GoogleTrackerRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, GoogleAndroidAdsConsentRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, BluetoothLowEnergyRule::class.java, false)
