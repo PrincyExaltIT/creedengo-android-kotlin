@@ -1,0 +1,30 @@
+<p>The 3-argument form of <code>SensorManager.registerListener()</code> delivers sensor events as soon as possible,
+waking the Application Processor (AP) on every event. The 4-argument form adds a
+<code>maxReportLatencyUs</code> parameter: events are buffered in the sensor hardware FIFO for up to that many
+microseconds before being flushed together. This lets the AP stay in a low-power state between flushes,
+reducing power consumption.</p>
+
+<p>Always pass a positive <code>maxReportLatencyUs</code> value. Passing <code>0</code> disables buffering and
+is equivalent to the 3-argument form.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+// No latency — AP woken on every event
+sensorManager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_NORMAL)         // Noncompliant
+
+// Latency 0 — buffering disabled
+sensorManager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_NORMAL, 0)      // Noncompliant
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+// 200 ms latency — AP can idle between batches
+sensorManager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_NORMAL, 200_000) // Compliant
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://github.com/green-code-initiative/creedengo-android">Sister project — creedengo-android (Java)</a></li>
+    <li><a href="https://developer.android.com/reference/android/hardware/SensorManager#registerListener(android.hardware.SensorEventListener,%20android.hardware.Sensor,%20int,%20int)">Android documentation — SensorManager.registerListener</a></li>
+    <li><a href="https://developer.android.com/guide/topics/sensors/sensors_overview#sensors-batch">Android guide — Batching sensor data</a></li>
+</ul>
