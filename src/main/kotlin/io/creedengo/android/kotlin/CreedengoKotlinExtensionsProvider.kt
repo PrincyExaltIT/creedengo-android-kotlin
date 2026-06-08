@@ -16,6 +16,7 @@ import io.creedengo.android.kotlin.checks.environment.TorchFreeRule
 import io.creedengo.android.kotlin.checks.environment.ContinuousRenderingRule
 import io.creedengo.android.kotlin.checks.environment.ThriftyMotionSensorRule
 import io.creedengo.android.kotlin.checks.environment.VibrationFreeRule
+import io.creedengo.android.kotlin.checks.social.TrackingIdRule
 import io.creedengo.android.kotlin.checks.environment.ThriftyBluetoothLowEnergySetAdvertiseModeRule
 import io.creedengo.android.kotlin.checks.environment.ThriftyNotificationRule
 import io.creedengo.android.kotlin.checks.environment.KeepCpuOnRule
@@ -58,5 +59,6 @@ class CreedengoKotlinExtensionsProvider : KotlinPluginExtensionsProvider {
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, ContinuousRenderingRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, ThriftyMotionSensorRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, VibrationFreeRule::class.java, false)
+        extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, TrackingIdRule::class.java, false)
     }
 }
