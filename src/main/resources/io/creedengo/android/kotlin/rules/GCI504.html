@@ -1,0 +1,18 @@
+<p>Transmitting data over a network without compression consumes more energy than with
+    compression. When data can be compressed by at least 10%, wrapping the output stream in a
+    <code>GZIPOutputStream</code> reduces bandwidth and improves energy efficiency on both ends
+    of the connection.</p>
+<p>Any call to <code>URLConnection.getOutputStream()</code> that is not wrapped directly in
+    <code>GZIPOutputStream(...)</code> is flagged.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    val con = URL("https://example.com").openConnection() as HttpURLConnection
+    val os = con.getOutputStream()                        // Noncompliant — uncompressed
+</pre>
+<pre>
+    val os = BufferedOutputStream(con.getOutputStream())  // Noncompliant — not GZIP
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    val os = GZIPOutputStream(con.getOutputStream())      // Compliant
+</pre>
