@@ -15,6 +15,7 @@ import io.creedengo.android.kotlin.checks.environment.ThriftyBluetoothLowEnergyR
 import io.creedengo.android.kotlin.checks.environment.TorchFreeRule
 import io.creedengo.android.kotlin.checks.environment.ContinuousRenderingRule
 import io.creedengo.android.kotlin.checks.environment.FusedLocationRule
+import io.creedengo.android.kotlin.checks.environment.InternetInTheLoopRule
 import io.creedengo.android.kotlin.checks.environment.JobCoalesceRule
 import io.creedengo.android.kotlin.checks.environment.SensorCoalesceRule
 import io.creedengo.android.kotlin.checks.environment.ThriftyGeolocationMinDistanceRule
@@ -72,5 +73,6 @@ class CreedengoKotlinExtensionsProvider : KotlinPluginExtensionsProvider {
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, VibrationFreeRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, TrackingIdRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, FusedLocationRule::class.java, false)
+        extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, InternetInTheLoopRule::class.java, false)
     }
 }

@@ -1,0 +1,17 @@
+<p>Opening an internet connection inside a loop is extremely battery-inefficient: HTTP exchanges are among the
+    most energy-consuming network operations. This typically occurs when a new connection is obtained by calling
+    <code>URL.openConnection()</code> inside a <code>for</code>, <code>while</code>, or <code>do-while</code>
+    loop body.<br>
+    This pattern is also the root cause of polling — repeatedly fetching data at fixed intervals instead of
+    using push notifications — which drains the battery unnecessarily.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    for (endpoint in endpoints) {
+        val conn = URL(endpoint).openConnection()  // Noncompliant
+    }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    // Batch the work outside the loop, or use push notifications
+    val conn = URL(endpoint).openConnection()
+</pre>
