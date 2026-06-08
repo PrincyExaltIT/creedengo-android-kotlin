@@ -1,0 +1,15 @@
+<p>The camera is an expensive hardware component. Acquiring it via <code>Camera.open()</code>
+    without subsequently calling <code>Camera.release()</code> keeps the camera hardware active
+    unnecessarily, which can drain the battery in just a few hours and prevents other apps from
+    using the camera.</p>
+<p>Calls to <code>Camera.open()</code> must always be paired with <code>Camera.release()</code>.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    val camera = Camera.open()   // Noncompliant — release() never called
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    val camera = Camera.open()
+    // ... use camera ...
+    camera.release()             // Compliant
+</pre>
