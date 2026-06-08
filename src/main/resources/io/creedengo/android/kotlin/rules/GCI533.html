@@ -1,0 +1,9 @@
+<p>Good practice detected. To meet EU User Consent Policy requirements, Google provides a Consent SDK.
+    Importing classes from <code>com.google.android.ads.consent.*</code> (deprecated legacy SDK)
+    or <code>com.google.android.ump.*</code> (User Messaging Platform, recommended since Android API 21)
+    signals that the app handles user consent properly.</p>
+<p>This rule fires as a positive signal whenever either consent library is already in use.</p>
+<h2>Compliant Code Example</h2>
+<pre>
+    import com.google.android.ump.ConsentInformation  // Compliant — GCI533 fires positively
+</pre>
