@@ -26,6 +26,7 @@ import io.creedengo.android.kotlin.checks.environment.ThriftyGeolocationMinTimeR
 import io.creedengo.android.kotlin.checks.environment.HighFrameRateRule
 import io.creedengo.android.kotlin.checks.environment.ThriftyMotionSensorRule
 import io.creedengo.android.kotlin.checks.environment.VibrationFreeRule
+import io.creedengo.android.kotlin.checks.social.GoogleTrackerRule
 import io.creedengo.android.kotlin.checks.social.TrackingIdRule
 import io.creedengo.android.kotlin.checks.environment.ThriftyBluetoothLowEnergySetAdvertiseModeRule
 import io.creedengo.android.kotlin.checks.environment.ThriftyNotificationRule
@@ -80,5 +81,6 @@ class CreedengoKotlinExtensionsProvider : KotlinPluginExtensionsProvider {
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, ChargeAwarenessRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, SaveModeAwarenessRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, WifiMulticastLockRule::class.java, false)
+        extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, GoogleTrackerRule::class.java, false)
     }
 }
