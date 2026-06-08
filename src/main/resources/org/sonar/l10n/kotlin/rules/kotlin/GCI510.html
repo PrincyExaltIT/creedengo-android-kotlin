@@ -1,0 +1,27 @@
+<p>When rendering OpenGL content with <code>GLSurfaceView</code>, the default render mode is
+<code>RENDERMODE_CONTINUOUSLY</code>, which causes the view to redraw as fast as possible — even when nothing
+has changed on screen. This wastes GPU and CPU cycles and drains the battery unnecessarily.</p>
+<p>Prefer <code>RENDERMODE_WHEN_DIRTY</code>: the view only redraws when
+<code>GLSurfaceView.requestRender()</code> is explicitly called, letting the GPU and CPU idle between frames.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+val surfaceView = GLSurfaceView(context)
+surfaceView.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY) // Noncompliant
+surfaceView.setRenderMode(1)                                     // Noncompliant
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+val surfaceView = GLSurfaceView(context)
+surfaceView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY) // Compliant
+// Then trigger redraws explicitly:
+surfaceView.requestRender()
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://github.com/green-code-initiative/creedengo-android">Sister project — creedengo-android (Java)</a></li>
+    <li><a href="https://developer.android.com/reference/android/opengl/GLSurfaceView#setRenderMode(int)">Android documentation — GLSurfaceView.setRenderMode</a></li>
+    <li><a href="https://developer.android.com/reference/android/opengl/GLSurfaceView#RENDERMODE_WHEN_DIRTY">Android documentation — RENDERMODE_WHEN_DIRTY</a></li>
+</ul>
