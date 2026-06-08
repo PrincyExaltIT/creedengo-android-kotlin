@@ -1,0 +1,37 @@
+<p>Since Android 5.0 (API 21), the <code>JobScheduler</code> API lets the system batch and defer background work to
+a time that is optimal for battery life. Using <code>AlarmManager</code> scheduling methods or
+<code>AbstractThreadedSyncAdapter</code> directly bypasses this batching, causing the device to wake up more
+frequently and draining the battery faster.</p>
+
+<p>Replace <code>AlarmManager</code> scheduling calls and sync adapter usage with <code>JobScheduler</code> (or
+the Jetpack <code>WorkManager</code> wrapper, which handles compatibility automatically).</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+alarmManager.setRepeating(                                          // Noncompliant
+    AlarmManager.RTC_WAKEUP,
+    System.currentTimeMillis(),
+    10 * 60 * 1000L,
+    pendingIntent
+)
+alarmManager.set(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent) // Noncompliant
+alarmManager.setWindow(AlarmManager.RTC_WAKEUP, 0, 60_000L, pendingIntent) // Noncompliant
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+val scheduler = getSystemService(JobScheduler::class.java)
+val info = JobInfo.Builder(JOB_ID, ComponentName(this, MyJobService::class.java))
+    .setPeriodic(10 * 60 * 1000L)
+    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+    .build()
+scheduler.schedule(info)
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://github.com/green-code-initiative/creedengo-android">Sister project — creedengo-android (Java)</a></li>
+    <li><a href="https://developer.android.com/reference/android/app/job/JobScheduler">Android documentation — JobScheduler</a></li>
+    <li><a href="https://developer.android.com/topic/libraries/architecture/workmanager">Android documentation — WorkManager</a></li>
+</ul>
