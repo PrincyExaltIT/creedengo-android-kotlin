@@ -1,0 +1,24 @@
+<p>WorkManager background tasks can be constrained to run only when the device battery is in
+    a healthy state. Without battery constraints a task may execute even when the battery is
+    critically low, accelerating discharge at the worst possible moment.</p>
+<p>Add a <code>Constraints</code> object that calls
+    <code>setRequiresBatteryNotLow(true)</code> and/or <code>setRequiresCharging(true)</code>
+    and pass it to the work request via <code>setConstraints()</code>.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    // No battery constraint — runs regardless of battery level
+    val workRequest = OneTimeWorkRequestBuilder&lt;MyWorker&gt;()   // Noncompliant
+        .build()
+    WorkManager.getInstance(context).enqueue(workRequest)
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    val constraints = Constraints.Builder()
+        .setRequiresBatteryNotLow(true)
+        .build()
+
+    val workRequest = OneTimeWorkRequestBuilder&lt;MyWorker&gt;()
+        .setConstraints(constraints)
+        .build()
+    WorkManager.getInstance(context).enqueue(workRequest)
+</pre>

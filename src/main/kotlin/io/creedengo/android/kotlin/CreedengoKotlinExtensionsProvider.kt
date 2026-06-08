@@ -19,6 +19,7 @@ import io.creedengo.android.kotlin.checks.environment.FusedLocationRule
 import io.creedengo.android.kotlin.checks.environment.ChargeAwarenessRule
 import io.creedengo.android.kotlin.checks.environment.SaveModeAwarenessRule
 import io.creedengo.android.kotlin.checks.environment.CameraLeakRule
+import io.creedengo.android.kotlin.checks.environment.BatteryConstrainedWorkRule
 import io.creedengo.android.kotlin.checks.environment.EverlastingServiceRule
 import io.creedengo.android.kotlin.checks.environment.UncachedDataReceptionRule
 import io.creedengo.android.kotlin.checks.environment.KeepScreenOnComposeRule
@@ -105,6 +106,7 @@ class CreedengoKotlinExtensionsProvider : KotlinPluginExtensionsProvider {
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, KeepScreenOnComposeRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, EverlastingServiceRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, UncachedDataReceptionRule::class.java, false)
+        extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, BatteryConstrainedWorkRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, GoogleTrackerRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, GoogleAndroidAdsConsentRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, BluetoothLowEnergyRule::class.java, false)
