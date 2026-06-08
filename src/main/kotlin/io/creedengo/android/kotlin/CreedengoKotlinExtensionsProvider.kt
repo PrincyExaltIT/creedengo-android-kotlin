@@ -16,6 +16,8 @@ import io.creedengo.android.kotlin.checks.environment.TorchFreeRule
 import io.creedengo.android.kotlin.checks.environment.ContinuousRenderingRule
 import io.creedengo.android.kotlin.checks.environment.JobCoalesceRule
 import io.creedengo.android.kotlin.checks.environment.SensorCoalesceRule
+import io.creedengo.android.kotlin.checks.environment.ThriftyGeolocationMinDistanceRule
+import io.creedengo.android.kotlin.checks.environment.ThriftyGeolocationMinTimeRule
 import io.creedengo.android.kotlin.checks.environment.HighFrameRateRule
 import io.creedengo.android.kotlin.checks.environment.ThriftyMotionSensorRule
 import io.creedengo.android.kotlin.checks.environment.VibrationFreeRule
@@ -62,6 +64,8 @@ class CreedengoKotlinExtensionsProvider : KotlinPluginExtensionsProvider {
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, ContinuousRenderingRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, JobCoalesceRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, SensorCoalesceRule::class.java, false)
+        extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, ThriftyGeolocationMinTimeRule::class.java, false)
+        extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, ThriftyGeolocationMinDistanceRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, HighFrameRateRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, ThriftyMotionSensorRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, VibrationFreeRule::class.java, false)

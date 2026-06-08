@@ -1,0 +1,30 @@
+<p>When calling <code>LocationManager.requestLocationUpdates()</code>, setting <code>minTime</code> to zero
+disables time-based filtering — the location provider sends updates as fast as it can, waking the device
+constantly and draining the battery. Use a positive value (e.g., 60 000 ms for once per minute) to let the
+hardware idle between updates.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+locationManager.requestLocationUpdates(
+    LocationManager.GPS_PROVIDER,
+    0L,    // Noncompliant — updates as fast as possible
+    10f,
+    listener
+)
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+locationManager.requestLocationUpdates(
+    LocationManager.GPS_PROVIDER,
+    60_000L, // at most one update per minute
+    10f,
+    listener
+)
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://github.com/green-code-initiative/creedengo-android">Sister project — creedengo-android (Java)</a></li>
+    <li><a href="https://developer.android.com/reference/android/location/LocationManager#requestLocationUpdates(java.lang.String,%20long,%20float,%20android.location.LocationListener)">Android documentation — LocationManager.requestLocationUpdates</a></li>
+</ul>
