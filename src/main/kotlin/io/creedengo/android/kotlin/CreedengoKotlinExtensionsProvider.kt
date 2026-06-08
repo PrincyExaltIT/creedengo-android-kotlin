@@ -16,6 +16,7 @@ import io.creedengo.android.kotlin.checks.environment.TorchFreeRule
 import io.creedengo.android.kotlin.checks.environment.ContinuousRenderingRule
 import io.creedengo.android.kotlin.checks.environment.FusedLocationRule
 import io.creedengo.android.kotlin.checks.environment.ChargeAwarenessRule
+import io.creedengo.android.kotlin.checks.environment.SaveModeAwarenessRule
 import io.creedengo.android.kotlin.checks.environment.InternetInTheLoopRule
 import io.creedengo.android.kotlin.checks.environment.JobCoalesceRule
 import io.creedengo.android.kotlin.checks.environment.SensorCoalesceRule
@@ -76,5 +77,6 @@ class CreedengoKotlinExtensionsProvider : KotlinPluginExtensionsProvider {
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, FusedLocationRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, InternetInTheLoopRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, ChargeAwarenessRule::class.java, false)
+        extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, SaveModeAwarenessRule::class.java, false)
     }
 }

@@ -1,0 +1,16 @@
+<p>Taking into account when the device is entering or exiting power save mode helps the app reduce its
+    energy consumption accordingly. Two complementary approaches exist: monitoring the
+    <code>BATTERY_CHANGED</code> broadcast by registering an <code>IntentFilter</code> on
+    <code>Intent.ACTION_BATTERY_CHANGED</code>, or querying the current state programmatically
+    with <code>PowerManager.isPowerSaveMode()</code>.<br>
+    This rule fires as a positive signal whenever either technique is already present in the code.</p>
+<h2>Compliant Code Example</h2>
+<pre>
+    // Option 1 — broadcast receiver
+    val filter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
+    registerReceiver(batteryReceiver, filter)
+
+    // Option 2 — programmatic check
+    val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+    val isInSaveMode = powerManager.isPowerSaveMode()
+</pre>
