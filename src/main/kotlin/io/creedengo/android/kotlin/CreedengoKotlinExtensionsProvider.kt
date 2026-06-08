@@ -13,6 +13,7 @@ import io.creedengo.android.kotlin.checks.environment.DurableWakeLockRule
 import io.creedengo.android.kotlin.checks.environment.RigidAlarmRule
 import io.creedengo.android.kotlin.checks.environment.ThriftyBluetoothLowEnergyRequestConnectionPriorityRule
 import io.creedengo.android.kotlin.checks.environment.TorchFreeRule
+import io.creedengo.android.kotlin.checks.environment.BluetoothLowEnergyRule
 import io.creedengo.android.kotlin.checks.environment.ContinuousRenderingRule
 import io.creedengo.android.kotlin.checks.environment.FusedLocationRule
 import io.creedengo.android.kotlin.checks.environment.ChargeAwarenessRule
@@ -84,5 +85,6 @@ class CreedengoKotlinExtensionsProvider : KotlinPluginExtensionsProvider {
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, WifiMulticastLockRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, GoogleTrackerRule::class.java, false)
         extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, GoogleAndroidAdsConsentRule::class.java, false)
+        extensions.registerRule(AndroidKotlinRulesDefinition.REPOSITORY_KEY, BluetoothLowEnergyRule::class.java, false)
     }
 }
